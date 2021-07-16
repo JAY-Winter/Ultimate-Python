@@ -13,6 +13,7 @@ num1()
 
 #num2
 def num2():    
+    # 전역변수 생성
     global v_num2 
     v_num2 = input("두 번째 숫자를 입력하세요 : ")
     if v_num2.isdigit():
