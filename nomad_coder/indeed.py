@@ -1,6 +1,4 @@
 #https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=0 크롤링
-import requests
-from bs4 import BeautifulSoup
 
 # 페이지 기본 주소 
 
@@ -14,13 +12,20 @@ from bs4 import BeautifulSoup
     # 8 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=350
     # n https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=(n-1)*50
 
-#url 기반으로 max_page 찾는 함수
-def max_page():
+import requests
+from bs4 import BeautifulSoup
+
+#url 기반으로 page_list 찾는 함수
+def page_list():
     n = 1
     i = 0
+
+#pages 전역화 함으로써 max_page() 에서 pages 변수를 이용할 수 있게한다
+    global pages
     pages = []
-# 임시로 350 까지 지정
-    while i <= 350:
+
+# 임시로 900 까지 지정
+    while i <= 900:
         i = (n-1)*50    
         
         url = f'https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start={i}'
@@ -31,16 +36,12 @@ def max_page():
         pages.append(int(current_page))
 
         n = n+1
-        print(pages)
 # 코드 마지막 부분
 
-        # 페이지 중 가장 큰 값을 찾는 반복문 
-        # 일단 i =(n-1)*50 에서 가장 큰 n 값을 찾는 것이 우선
-        # maxVal = pages[0]
-        # for i in range(1,len(pages)):
-        #     if maxVal < pages[i]:
-        #         maxVal = pages[i]
-
-        # print(maxVal)
-
-max_page()
+# 페이지 중 가장 큰 값을 찾는 반복문 
+# 일단 i =(n-1)*50 에서 가장 큰 n 값을 찾는 것이 우선
+def max_page():
+    maxVal = pages[0]
+    for i in range(1,len(pages)):
+        if maxVal < pages[i]:
+            maxVal = pages[i]
