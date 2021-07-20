@@ -1,16 +1,3 @@
-#https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=0 크롤링
-
-# 페이지 기본 주소 
-
-    # 1 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=0
-    # 2 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=50
-    # 3 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=100
-    # 4 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=150
-    # 5 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=200
-    # 6 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=250
-    # 7 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=300
-    # 8 https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=350
-    # n https://kr.indeed.com/jobs?q=python&limit=50&radius=25&start=(n-1)*50
 
 import requests
 from bs4 import BeautifulSoup
@@ -36,6 +23,10 @@ def page_list():
         pages.append(int(current_page))
 
         n = n+1
+
+
+
+        
 # 코드 마지막 부분
 
 # 페이지 중 가장 큰 값을 찾는 반복문 
@@ -45,3 +36,19 @@ def max_page():
     for i in range(1,len(pages)):
         if maxVal < pages[i]:
             maxVal = pages[i]
+
+
+
+
+
+
+page_table = soup.find('table',{"class" : "jobCard_mainContent"})
+
+
+page_span = page_table.span.string
+
+# print(page_span)
+
+
+print(soup.find('div', {'class' : 'heading4 color-text-primary singleLineTitle tapItem-gutterheading4 color-text-primary singleLineTitle tapItem-gutter'}))
+
