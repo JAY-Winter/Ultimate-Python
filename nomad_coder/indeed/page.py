@@ -24,8 +24,12 @@ def page_list():
 
         n = n+1
 
+        
 
-
+        # for i in range(50):
+        page_zone = soup.find("h2", {"class" : "jobTitle jobTitle-color-purple"}).span.string
+        print(page_zone)
+        
         
 # 코드 마지막 부분
 
@@ -37,18 +41,18 @@ def max_page():
         if maxVal < pages[i]:
             maxVal = pages[i]
 
+page_list()
 
 
-
-
-
-page_table = soup.find('table',{"class" : "jobCard_mainContent"})
-
-
-page_span = page_table.span.string
 
 # print(page_span)
+# page_table = soup.find('table',{"class" : "jobCard_mainContent"})
+# print(page_table)
+# page_title = page_table.select_one("span[title]").string
+# print(page_title)
+# page_span = page_table.span.string
 
 
-print(soup.find('div', {'class' : 'heading4 color-text-primary singleLineTitle tapItem-gutterheading4 color-text-primary singleLineTitle tapItem-gutter'}))
+
+
 
