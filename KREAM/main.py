@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # import requests
 import re
 from bs4 import BeautifulSoup
@@ -13,3 +14,6 @@ except HTTPError as e:
 else:
     html_soup = BeautifulSoup(html_open.read(),'lxml')
     print(html_soup)
+=======
+404 not found !
+>>>>>>> adde03bdae20124a2d85de291a7b36f36c2beb04
