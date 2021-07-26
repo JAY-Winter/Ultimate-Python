@@ -1,4 +1,5 @@
-def plus(a,b):
-    return int(a)+int(b)
+A,B = map(int,input().split(','))
 
-print(plus(1,2))
+
+result = A+B
+print(result)
