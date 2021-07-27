@@ -2,15 +2,29 @@ N = int(input())
 
 X = int(input())
 
-list = [1,10,4,9,2,3,8,5,7,6]
-
 def smaller(N,X):
-
+    
+    list = []
     answer = []
     
+    # list 생성 for문, i>0 하므로 append(i+1)
     for i in range(N):
-        if list[i] < X : answer.append(list[i])
+        list.append(i+1)
 
+    # answer 에 X 값보다 작은 index append
+    for j in range(N):
+        if list[j] < X : answer.append(list[j])
+    
+    # list index 를 str 한 후 아래 F_answer 에서 ',' 를 없애고 출력할 예정이었음
+    # for j in range(N):
+    #     if list[j] < X : answer.append(str(list[j]))
+    
+    # F_answer = " ".join(answer)
+    
+    # for k in range(len(F_answer)):
+        # str(F_answer[k])
+    
+    # print(F_answer)
     print(answer)
 
 smaller(N,X)
