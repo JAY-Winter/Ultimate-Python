@@ -1,6 +1,5 @@
 def multiple(A,B):
-    global A_list
-    global B_list
+
     A_list = []
     B_list = []
 
@@ -12,15 +11,28 @@ def multiple(A,B):
         B_list.append(B%10)
         B = B//10
 
+
+
+
+
+
 A,B = map(int, input().split(','))
+# A = 472, B = 385
+N =  int(3)
 
-multiple(A,B)
+def mul(A,B,N):
+
+    A_list = [] 
+    B_list = []
+
+    if A == 0 and B == 0 : return print(A_list,B_list)
+    else :
+        A_list.append(A%10)
+        A = A//10
+
+        B_list.append(B%10)
+        B = B//10
 
 
-fir = A*B_list[0]
-sec = A*B_list[1]
-thr = A*B_list[2]
 
-print(fir)
-print(sec)
-print(thr)
+mul(A,B,N)

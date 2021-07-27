@@ -1,12 +1,12 @@
 import sys
 
-def fast_plus(N):
+N = int(input())  
 
-    for i in range(N):
-        A,B = map(int, sys.stdin.readline().split(''))
-        print(A+B)
-        if i+1 == N : return
+for i in range(N):
+    A,B = map(int,sys.stdin.readline().split())
+    print(A+B)
 
-N = int(input())
-fast_plus(N)
+
+
+
 
