@@ -15,7 +15,7 @@ def cycle_plus(N,X):
             
             N = (units*10) + (tmp%10)
             answer += 1
-            print(N)
+
             if N == X : 
                 print(answer)
                 break
@@ -24,5 +24,7 @@ def cycle_plus(N,X):
             print("Occured Error")
 
 cycle_plus(N,X)
+
+
 
 
