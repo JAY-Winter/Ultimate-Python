@@ -4,7 +4,7 @@ for i in range(9):
 
     list = list(map(int, sys.stdin.readline().split()))
     print(list)
-    
+
 def max(list):
 
     point = 0
@@ -22,4 +22,3 @@ def max(list):
         
 
 max(list)
-
