@@ -7,9 +7,8 @@ N = (A*B*C)
 
 def N_count(N):
 
-    
 
-    
+
 
 
 
