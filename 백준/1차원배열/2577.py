@@ -8,18 +8,17 @@ N = str(A*B*C)
 def N_count(N):
 
     list = ['0','1','2','3','4','5','6','7','8','9']
+
     for i in range(len(list)):
 
         point = list[i]
         answer = 0
 
-        for j in range(len(list)-1):
+        for j in range(len(N)):
 
-            if point == N[j+1] :
-                answer += 1
-
+            if point == N[j] : answer += 1
+                
         print(answer)
-
 
 N_count(N)
 
