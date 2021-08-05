@@ -13,16 +13,13 @@ def over_ave(C):
         ave = (sum(score)-N)/N
         count = 0
 
-
         for j in range(N+1):
 
-            if score[j] > ave : 
-                count += 1
-
+            if score[j] > ave : count += 1
+                
             over_students_ave = (count/N)*100            
             round(over_students_ave)
 
-            
         answer.append("%0.3f" %+over_students_ave+"%")
 
     for k in range(len(answer)):
