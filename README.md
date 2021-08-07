@@ -4,5 +4,6 @@
 
 <h3> Python 공부하는 곳</h3>
 
-<li> Django 시작 '21.08.04(수)</li>
-<li> Django skelton 작업 중</li>
+<li> [Django] 시작 '21.08.04(수)</li>
+<li> [Django] skelton 작업 중 '21.08.06(금)</li>
+<li> [Django] modeling '21.08.07(토)</li>
