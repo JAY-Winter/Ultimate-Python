@@ -1,9 +1,20 @@
-from selenium import webdriver
-# from bs4 import BeautifulSoup
-# from requests import get
+import requests
+from bs4 import BeautifulSoup
 
-driver = webdriver.Chrome(executable_path='/Users/heyon/Desktop/chromedriver_mac64')
+session = requests.session()
 
-driver.implicitly_wait(2)
-driver.get("https://www.etoos.com/member/login.asp?returnUrl=http://247.etoos.com/lms/index.do")
+url = "https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do"
+
+data = {
+    "mem_id" : "ilsan247",
+    "pwdtmp" : "isd151208^^"
+
+}
+
+
+response = session.get(url)
+
+print(response.status_code)
+
+
 
