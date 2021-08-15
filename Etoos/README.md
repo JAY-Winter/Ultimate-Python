@@ -10,7 +10,7 @@
 
 * Vscode 에서 commit&pull,push 해도 커밋 카운트가 안 된다.. 내일 해결하기
 
-
+<<<<<<< HEAD
 1. 특정 학생 My 247
 : 수시로 변동될 수도 있는 학생 명단 중 특정 학생 한 명을 지목 후 
 문제를 뽑아내는 건 불확실성이 크다.
@@ -43,3 +43,6 @@ https://ilsandonggu247.etoos.com/lms/schedule/my_schedule.do?student_cd=304881&b
 
 
 
+
+=======
+>>>>>>> 7736ff5f1f18f5b0e07cb009305639604edb6956
