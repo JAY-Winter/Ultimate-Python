@@ -1,6 +1,15 @@
+<h1> 진행 과정</h1>
 
+1. selenium 을 이용해 크롬 제어
+- name -> id -> css -> xpath 순으로 제어했다
+
+<h1> 해야할 일</h1>
+1. 사진 크롤링 하기
 
 <h1> Problem </h1>
+
+* Vscode 에서 commit&pull,push 해도 커밋 카운트가 안 된다.. 내일 해결하기
+
 
 1. 특정 학생 My 247
 : 수시로 변동될 수도 있는 학생 명단 중 특정 학생 한 명을 지목 후 
@@ -28,7 +37,9 @@ https://ilsandonggu247.etoos.com/lms/schedule/my_schedule.do?student_cd=304881&b
    학생 list 를 펼쳤을 때 최상단에 있는 학생을 지목 후 그 학생의
    정보를 이용하는 것이 최선임을 고안함
 
-3. 
+
+
+
 
 
 
