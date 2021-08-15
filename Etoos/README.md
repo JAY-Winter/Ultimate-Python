@@ -37,12 +37,3 @@ https://ilsandonggu247.etoos.com/lms/schedule/my_schedule.do?student_cd=304881&b
    학생 list 를 펼쳤을 때 최상단에 있는 학생을 지목 후 그 학생의
    정보를 이용하는 것이 최선임을 고안함
 
-
-
-
-
-
-
-
-=======
->>>>>>> 7736ff5f1f18f5b0e07cb009305639604edb6956
