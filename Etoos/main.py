@@ -12,7 +12,7 @@ URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.et
 driver = webdriver.Chrome('chromedriver')
 
 ID = "ilsan247"
-PW = "="
+PW = "PW"
 
 driver.get(URL)
 
@@ -59,50 +59,92 @@ alert = driver.switch_to.alert
 alert.accept()
 
 # 전체 페이지 갯수 찾은 후 사진 crawling 하는 def 
+class Etoos() :
 
-def CountPage_and_CrawlingPic() :
+    def CountPage() :
 
-    # 아래 있는 정리 후 넣을거임
+        page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
+        position_slash = page_tag.rfind('/')
+        
+        str(page_tag)
+
+        page_count = int(page_tag[-position_slash:])
+
+        return page_count
+
+    def CrawlingQ(Page_count) :
+
+        PNG_folder = './Reading_PNG'
+        
+        if not os.path.isdir(PNG_folder) :
+            os.mkdir(PNG_folder)
+
+        for i in range(Page_count) :
+
+            PNG = driver.find_element_by_css_selector("#wr_question > div.cont")
+
+            # start = link.rfind('.')
+            # end = link.rfind('g')
+
+            # filetype = link[start:end+1]
+
+            # urlretrieve(link, "1{}".format(filetype))
+
+            # 첫 번째 문제 후 두 번째 문제로 넘어가는 코드
+            # driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
+
+            a = driver.find_element_by_tag_name("img")
+            print(a.text)
+
+            # <img src="https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116001.png" width="430px;" style="margin-top: 10px; margin-left: 10px;" alt="문제이미지">
+            # <img src="https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116002.png" width="430px;" style="margin-top: 10px; margin-left: 10px;" alt="문제이미지">
 
 
 
 
 
-# 전체 페이지 찾는 코드
-# a : css_selector 로 찾음
-a = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span")
-
-# b : parsing 한 text 를 str 화 함. 왜? '/' 가 포함되어있어서 float 취급받음
-b = str(a.text)
-
-# c : a 에서 뽑은 text 를 우측 기준으로 '/' 가 몇 번째에 있는 지 찾음
-c = a.text.rfind('/')
-
-# d : parsing -> str 후 끝에서 2번째 까지 뽑아낸 뒤 int 화. 왜? 전체 페이지 갯수 를 구하는 것이기 때문에
-d = int(b[-2:])
-
-# 폴더 생성
-PNG_folder = './Reading_PNG'
-
-if not os.path.isdir(PNG_folder) :
-    os.mkdir(PNG_folder)
-
-# 데일리테스트 문제 사진 크롤링
-PNG = driver.find_element_by_css_selector("#wr_question > div.cont")
-
-link = "https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116001.png"
-
-start = link.rfind('.')
-end = link.rfind('g')
 
 
-filetype = link[start:end+1]
 
-urlretrieve(link, "1{}".format(filetype))
 
+
+Page_count = Etoos.CountPage() 
+
+Etoos.CrawlingQ(Page_count)
 
 
 print("Operate")
 
-# 첫 번째 문제 후 두 번째 문제로 넘어가는 코드
-# driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
+
+# a : css_selector 로 찾음
+# a = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span")
+
+# b : parsing 한 text 를 str 화 함. 왜? '/' 가 포함되어있어서 float 취급받음
+# b = str(a.text)
+
+# c : a 에서 뽑은 text 를 우측 기준으로 '/' 가 몇 번째에 있는 지 찾음
+# c = a.text.rfind('/')
+
+# d : parsing -> str 후 끝에서 2번째 까지 뽑아낸 뒤 int 화. 왜? 전체 페이지 갯수 를 구하는 것이기 때문에
+# d = int(b[-2:])
+
+# 폴더 생성
+# PNG_folder = './Reading_PNG'
+
+# if not os.path.isdir(PNG_folder) :
+#     os.mkdir(PNG_folder)
+
+# # 데일리테스트 문제 사진 크롤링
+# PNG = driver.find_element_by_css_selector("#wr_question > div.cont")
+
+# link = "https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116001.png"
+
+# start = link.rfind('.')
+# end = link.rfind('g')
+
+
+# filetype = link[start:end+1]
+
+# urlretrieve(link, "1{}".format(filetype))
+
+
