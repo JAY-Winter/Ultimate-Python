@@ -12,7 +12,7 @@ URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.et
 driver = webdriver.Chrome('chromedriver')
 
 ID = "ilsan247"
-PW = "PW"
+PW = "isd151208^^"
 
 driver.get(URL)
 
