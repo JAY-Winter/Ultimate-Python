@@ -1,18 +1,22 @@
 
+from urllib import request
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-import os
+import os.path
 from urllib.request import urlretrieve
-
-# class Login():
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+from selenium.common.exceptions import NoSuchElementException
 
 URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do'
 
 driver = webdriver.Chrome('chromedriver')
 
 ID = "ilsan247"
-PW = "isd151208^^"
+PW = "{W}"
 
 driver.get(URL)
 
@@ -50,10 +54,32 @@ driver.switch_to_window(window_after)
 driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
 driver.implicitly_wait(50)
 
-# 예시로 8/9 일자 클릭
-driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[2]/td[1]").click()
-driver.implicitly_wait(50)
 
+
+    
+if not driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[5]/td[3]/div/strong") :
+    print("일치하는 날짜가 없습니다.")
+    
+
+Input_day = input("희망하는 날짜를 입력하세요 : ")
+
+
+
+
+Day = driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[1]/td[1]/div/strong").text
+
+if Input_day == Day :
+    print("YES")
+
+
+Mon = driver.find_element_by_xpath("//*[@id='month_8']/a").text
+print(Mon, type(Mon))
+
+
+# 예시로 8/9 일자 클릭
+# driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[2]/td[1]").click()
+driver.implicitly_wait(50)
+driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[3]/td[2]").click()
 # 시험응시 알람버튼이 생성 시 alert 로 넘어간 뒤 accept
 alert = driver.switch_to.alert
 alert.accept()
@@ -65,7 +91,6 @@ class Etoos() :
 
         page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
         position_slash = page_tag.rfind('/')
-        
         str(page_tag)
 
         page_count = int(page_tag[-position_slash:])
@@ -75,76 +100,26 @@ class Etoos() :
     def CrawlingQ(Page_count) :
 
         PNG_folder = './Reading_PNG'
-        
+        filetype = "PNG"
+
         if not os.path.isdir(PNG_folder) :
             os.mkdir(PNG_folder)
 
         for i in range(Page_count) :
+            
+            PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+            time.sleep(3)
+            urlretrieve(PNG_link, "{}.{}".format(i+1,filetype))
+            time.sleep(0.5)
 
-            PNG = driver.find_element_by_css_selector("#wr_question > div.cont")
-
-            # start = link.rfind('.')
-            # end = link.rfind('g')
-
-            # filetype = link[start:end+1]
-
-            # urlretrieve(link, "1{}".format(filetype))
-
-            # 첫 번째 문제 후 두 번째 문제로 넘어가는 코드
-            # driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
-
-            a = driver.find_element_by_tag_name("img")
-            print(a.text)
-
-            # <img src="https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116001.png" width="430px;" style="margin-top: 10px; margin-left: 10px;" alt="문제이미지">
-            # <img src="https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116002.png" width="430px;" style="margin-top: 10px; margin-left: 10px;" alt="문제이미지">
-
-
-
-
-
-
-
-
+            driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
+            
+            # if os.path.isfile("{}.{}".format(i+1,filetype)) :
+                # return print("파일이 있습니다.")
 
 
 Page_count = Etoos.CountPage() 
 
-Etoos.CrawlingQ(Page_count)
-
+# Etoos.CrawlingQ(Page_count)
 
 print("Operate")
-
-
-# a : css_selector 로 찾음
-# a = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span")
-
-# b : parsing 한 text 를 str 화 함. 왜? '/' 가 포함되어있어서 float 취급받음
-# b = str(a.text)
-
-# c : a 에서 뽑은 text 를 우측 기준으로 '/' 가 몇 번째에 있는 지 찾음
-# c = a.text.rfind('/')
-
-# d : parsing -> str 후 끝에서 2번째 까지 뽑아낸 뒤 int 화. 왜? 전체 페이지 갯수 를 구하는 것이기 때문에
-# d = int(b[-2:])
-
-# 폴더 생성
-# PNG_folder = './Reading_PNG'
-
-# if not os.path.isdir(PNG_folder) :
-#     os.mkdir(PNG_folder)
-
-# # 데일리테스트 문제 사진 크롤링
-# PNG = driver.find_element_by_css_selector("#wr_question > div.cont")
-
-# link = "https://eci.etoos.gscdn.com/247/MT/K002/8/9/K002Q116001.png"
-
-# start = link.rfind('.')
-# end = link.rfind('g')
-
-
-# filetype = link[start:end+1]
-
-# urlretrieve(link, "1{}".format(filetype))
-
-
