@@ -9,6 +9,10 @@ def list
     CountPage 에서 return 된 Page_count 를 매개변수로 하여
     문제 Crawling 하는 함수
 
+3) CountDay() :
+    희망하는 날짜와 찾은 날짜가 동일할 때
+    그 페이지를 open 해주는 함수
+
 <h1> 진행 과정</h1>
 
 1.  BeautifulSoup 를 사용할 것인가 - headless
@@ -41,6 +45,12 @@ def list
 5. 희망하는 날짜 지정 후 찾기
 - 문제 Crawling 원하는 날짜를 input 한 뒤 일치하는 text 를 가진
 날짜를 찾아야하는데 어떻게 할 것인가?
+-> Etoos.CountDay 참고
+-> webelement -> cssSelector 로 다시 convert 하는 방법을 찾아서
+webelement 가 아닌 cssSelector 를 클릭하는 방법을 생각해보았다
+-> 왜? Inputday 와 찾은 날짜가 동일하면 찾은 날짜의 cssSelector 를 누를거여서!
+
+
 
 <h1> TO-DO </h1>
 
