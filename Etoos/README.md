@@ -1,4 +1,3 @@
-
 <h1> Etoos.API</h1>
 def list
 
@@ -49,8 +48,24 @@ def list
 -> webelement -> cssSelector 로 다시 convert 하는 방법을 찾아서
 webelement 가 아닌 cssSelector 를 클릭하는 방법을 생각해보았다
 -> 왜? Inputday 와 찾은 날짜가 동일하면 찾은 날짜의 cssSelector 를 누를거여서!
+-> 희망하는 날짜 지정 완료
 
+6. 양식에 맞지 않은 날짜 입력시 오류
 
+희망하는 날짜를 입력하세요. ex) 07 / 01 : 08 //002
+양식에 맞는 날짜를 입력해주세요.
+
+Traceback (most recent call last):
+  File "/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/main.py", line 126, in <module>
+    Etoos.select_day(day_list,day_list2, Find_day_key)
+  File "/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/main.py", line 79, in select_day
+    return Etoos.select_day()
+TypeError: select_day() missing 3 required positional arguments: 'day_list', 'day_list2', and 'Find_day_key'
+
+오류 해결해야함
+
+7. urlretrieve : 0번째 index 가 중복돼서 다운로드 되는 현상 발생
+코드 구조가 문제인걸까?
 
 <h1> TO-DO </h1>
 
