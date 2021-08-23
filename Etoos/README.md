@@ -67,6 +67,13 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
 7. urlretrieve : 0번째 index 가 중복돼서 다운로드 되는 현상 발생
 코드 구조가 문제인걸까?
 
+8. Etoos.countDay() 
+    retun 속도가 너무 느림 왜 그럴까?
+
+9. Etoos.crawlingQ(total_page, Major,Input_day) :
+    Input_day 가 ex. 08 / 20 이라서 '/' 로 다음 경로가 만들어짐
+    어떻게 하나의 하위 폴더만 만들 수 있을까?
+
 <h1> TO-DO </h1>
 
 1. 희망하는 날짜 지정 후 찾기
