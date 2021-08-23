@@ -11,5 +11,9 @@
 <li> Commit, push and pull 해도 카운트 안 되는 이유가 무엇일까?</li>
 <li> ETOOS 프로젝트는 현재 진행형이다!</li>
 <li> - 현재 희망하는 날짜 입력 시 시험 오픈 가능</li>
+<li> ETOOS 오류 해결 해야함 </li>
+<!-- <li> 오늘은 젤다의 전설과 동물의 숲을 했습니다. </li> -->
+<!-- commit count 가 안됨! -->
 <h1> 생각 창고 </h1>
 <h3> Python 한글 HWP API </h3>
+
