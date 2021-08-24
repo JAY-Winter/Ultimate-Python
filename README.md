@@ -14,6 +14,7 @@
 <li> ETOOS 오류 해결 해야함 </li>
 <!-- <li> 오늘은 젤다의 전설과 동물의 숲을 했습니다. </li> -->
 <!-- commit count 가 안됨! -->
+<li> 반복문 시 try, except 해결 중 </li>
 <h1> 생각 창고 </h1>
 <h3> Python 한글 HWP API </h3>
 
