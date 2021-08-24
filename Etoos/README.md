@@ -1,16 +1,33 @@
 <h1> Etoos.API</h1>
-def list
 
-1) CountPage() :
-    전체 페이지 갯수 카운트 하는 함수
+<h3> class Etoos </h3>
 
-2) CrawlingQ(Page_count) :
-    CountPage 에서 return 된 Page_count 를 매개변수로 하여
-    문제 Crawling 하는 함수
+<h4> def list </h4>
 
-3) CountDay() :
-    희망하는 날짜와 찾은 날짜가 동일할 때
-    그 페이지를 open 해주는 함수
+1) login() :
+   selenium 을 이용해 url 를 open 한 뒤 로그인 후
+   학생 관리페이지 open
+
+2) selectMajor() :
+   국어 또는 수학 중 희망하는 과목의 시험 페이지 open
+
+3) countTotalPage() :
+    시험 페이지 개수가 총 몇 개인지 카운트
+
+4) crawlingQuestion(total_page, Major, Input_day) :
+    3개의 매개변수를 통해 crawling 을 희망하는 과목 선택 및
+    원하는 날짜 입력 후 countTotalPage 를 통해 return 된 total_page 만큼 
+    문제 crawling
+    
+5) countDay() :
+    월 별 시행되는 데일리테스트 개수가 몇 개인지 count 후
+    return day_list
+    
+6) selectDay() :
+    희망하는 날짜 입력 후 countDay()에서 return 된 day_list
+    를 통해 희망하는 날짜와 day_list 에 속해있는 날짜가 일치할 시
+    해당 날짜 클릭
+    
 
 <h1> 진행 과정</h1>
 
@@ -69,15 +86,20 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
 
 8. Etoos.countDay() 
     retun 속도가 너무 느림 왜 그럴까?
+-> 날짜 출력 시간이 30초 이상 걸려서 이유를 확인해본 결과 selenium 의 기본 time set 은
+30초로 되어있었기 때문이다. 따라서 implicitly.wait() 를 걸어줘서 값이 출력되는 시간을 단축!
+
 
 9. Etoos.crawlingQ(total_page, Major,Input_day) :
     Input_day 가 ex. 08 / 20 이라서 '/' 로 다음 경로가 만들어짐
     어떻게 하나의 하위 폴더만 만들 수 있을까?
-
+-> makedirs 를 통해 새로운 여러 경로 및 폴더 생성 가능
+   
 <h1> TO-DO </h1>
 
-1. 희망하는 날짜 지정 후 찾기
-
+1. 양식에 맞지 않은 날짜 입력시 오류 해결
+2. urlretrieve 0번 째 index 2번 다운로드 
+3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
 
 <h1> Problem </h1>
 
