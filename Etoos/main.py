@@ -55,8 +55,6 @@ class Etoos() :
             driver.close()
             return Etoos.login()
 
-
-
     def selectMajor() : 
     # 데일리테스트 - 국어 
         global Major
@@ -77,11 +75,12 @@ class Etoos() :
             return Etoos.selectMajor()
 
     def countTotalPage() :
-
+        driver.implicitly_wait(2)
         tatal_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
         position_slash = tatal_page_tag.rfind('/')
         str(tatal_page_tag)
 
+        global total_page
         total_page = int(tatal_page_tag[-position_slash:])
 
         return total_page
@@ -139,66 +138,81 @@ class Etoos() :
             alert.accept()
 
     def countDay() :
+# countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
+# 따라서 driver.implicitly_wait() 로 수정했다.
 
+        global day_list
+        global day_values
         day_list = []
-        day_selector_list = []
 
-        for week in range(6) : 
+        for week in range(1,6) :
 
-            days = driver.find_elements_by_css_selector("#math_day > td:nth-child({}) > div > strong".format(week+1))
+            for day in range(1, 6) :
 
-            for day in range(5) :                     
-
+                driver.implicitly_wait(0.1)
                 try : 
-
-                    Find_day = days[day].text
-                    Find_day_key = days[day]
-
-                    day_list.append(Find_day)
-                    day_selector_list.append(Find_day_key)            
-
-                except (IndexError, NoSuchElementException):
-                    print("에러에러에러에러")
-                    pass
-
-                finally :
+                    day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
+                    day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
                     
-                    print(day_list)
+                    days = {day_key : day_values}
+                    
+                    day_list.append(days)
 
-                    if week == 5 and day ==4 :
+                except NoSuchElementException:
 
-                        return print("끝")
-                        # return day_list, day_selector_list
+                    if '31' in day_list[-1].keys() : 
+                        print("31일까지 입니다.") 
+                        return day_list
+
+                    elif '31' not in day_list[-1].keys() and '30' in day_list[-1].keys() :
+                        print("30일까지 입니다.")
+                        return day_list
+
+                    elif '30' not in day_list[-1].keys() and '29' in day_list[-1].keys() :
+                        print("29일까지 입니다.")
+                        return day_list
         
-
-    def selectDay(day_list, day_selector_list) : 
+    def selectDay(day_list) : 
         
         global Input_day
         Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
-        
-        for i in range(len(day_list)) : 
 
-            if Input_day == day_list[i] : 
-                
-                day_selector_list[i].click()
-                
+        list_Input_day = f"['{Input_day}']"
+
+        keys_to_list = []
+        values_to_list = []
+
+        for i in range(len(day_list)) :
+
+            keys_to_list.append(str(list(day_list[i].keys())))
+
+            if list_Input_day == keys_to_list[i] :
+
+                values_to_list = list(day_list[i].values())
+                values_to_list[0].click()
+
                 alert = driver.switch_to.alert
                 alert.accept()
 
-            elif len(Input_day) != 7 :
+            if len(Input_day) != 7 :
 
                 print("양식에 맞는 날짜를 입력해주세요.")
                 return Etoos.selectDay()
 
+
+# 코드 실행 
 Etoos.login()
 
 Etoos.selectMajor()
 
-day_list,day_selector_list = Etoos.countDay()
-Etoos.selectDay(day_list,day_selector_list)
+Etoos.countDay()
 
-total_page = Etoos.countTotalPage() 
+Etoos.selectDay(day_list)
 
-# Etoos.crawlingQ(total_page, Major, Input_day)
+Etoos.countTotalPage()
+
+Etoos.crawlingQ(total_page, Major, Input_day)
+
+
 
 print("정상 작동")
