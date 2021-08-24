@@ -86,15 +86,20 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
 
 8. Etoos.countDay() 
     retun 속도가 너무 느림 왜 그럴까?
+-> 날짜 출력 시간이 30초 이상 걸려서 이유를 확인해본 결과 selenium 의 기본 time set 은
+30초로 되어있었기 때문이다. 따라서 implicitly.wait() 를 걸어줘서 값이 출력되는 시간을 단축!
+
 
 9. Etoos.crawlingQ(total_page, Major,Input_day) :
     Input_day 가 ex. 08 / 20 이라서 '/' 로 다음 경로가 만들어짐
     어떻게 하나의 하위 폴더만 만들 수 있을까?
-
+-> makedirs 를 통해 새로운 여러 경로 및 폴더 생성 가능
+   
 <h1> TO-DO </h1>
 
-1. 희망하는 날짜 지정 후 찾기
-
+1. 양식에 맞지 않은 날짜 입력시 오류 해결
+2. urlretrieve 0번 째 index 2번 다운로드 
+3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
 
 <h1> Problem </h1>
 
