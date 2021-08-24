@@ -85,7 +85,7 @@ class Etoos() :
 
         return total_page
 
-    def crawlingQ(total_page, Major,Input_day) :
+    def crawlingQuestion(total_page, Major,Input_day) :
         
         edit_Input_day = Input_day.replace("/","")
 
@@ -197,7 +197,7 @@ class Etoos() :
             if len(Input_day) != 7 :
 
                 print("양식에 맞는 날짜를 입력해주세요.")
-                return Etoos.selectDay()
+                return Etoos.selectDay(day_list)
 
 
 # 코드 실행 
@@ -211,7 +211,7 @@ Etoos.selectDay(day_list)
 
 Etoos.countTotalPage()
 
-Etoos.crawlingQ(total_page, Major, Input_day)
+Etoos.crawlingQuestion(total_page, Major, Input_day)
 
 
 
