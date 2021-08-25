@@ -2,6 +2,7 @@ from os import major
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 import os.path
+from os.path import getsize
 from urllib.request import urlretrieve
 import time
 from selenium.common.exceptions import NoSuchElementException
@@ -58,21 +59,90 @@ class Etoos() :
     def selectMajor() : 
     # 데일리테스트 - 국어 
         global Major
-        Major = input("출력이 필요한 과목을 입력하세요. ex) 국어, 수학 : ")
+
+        print("""
+        <선택 과목>
+        - 데일리하이퍼 확통 : 확통1
+        - 데일리하이퍼 미적분 : 미적분1
+        - 데일리하이퍼 기하 : 기하1
+
+        - 2등급거저먹기 확통 : 확통2
+        - 2등급거저먹기 미적분 : 미적분2
+        - 2등급거저먹기 기하 : 확통2
+
+        - 언어와 매체 : 언매
+        - 화법과 작문 : 화작
+
+        """)
         
-        if Major == '국어' : 
-            driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
-            print("Loading ...")
-            
+        Major = input("출력이 필요한 과목을 입력하세요 : ")
 
-        elif Major == '수학' : 
-            driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
-            print("Loading ...")
-            
+        try :
+            if Major == '언매' : 
+                
+                driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
 
-        else :
-            print("올바른 과목을 입력해주세요 : ")
-            return Etoos.selectMajor()
+            elif Major == '화작' :
+                
+                driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
+                alert = driver.switch_to.alert
+                alert.accept()            
+
+            elif Major == '확통1' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            elif Major == '미적분1' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            elif Major == '기하1' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            elif Major == '확통2' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[4]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            elif Major == '미적분2' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[5]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            elif Major == '기하2' : 
+                driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
+                time.sleep(0.5)
+                driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[6]").click()
+                alert = driver.switch_to.alert
+                alert.accept()
+
+            else :
+                print("올바른 과목을 입력해주세요.")
+                return Etoos.selectMajor()
+
+        except :
+            print("이미 들어와 있는 페이지입니당")
+            return
 
     def countTotalPage() :
         driver.implicitly_wait(2)
@@ -103,23 +173,25 @@ class Etoos() :
             for i in range(1, total_page+1) :
 
                 Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-                Text_PNG_link = driver.find_element_by_css_selector(f"#text_img_nm{i}").get_attribute("src")
 
-                try :
+                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")            
 
-                    urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")
-                    urlretrieve(Text_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/지문{i}번.{filetype}")
-                    time.sleep(1.0)
-                    driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
+                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
+                time.sleep(1.0)
 
-                except NoSuchElementException:  
-                    pass
-                    
-                
             alert = driver.switch_to.alert
             alert.accept()
+            # 다시 1번 문제로 돌아와서 지문 찾음
+            driver.find_element_by_css_selector("#qstnNum > td.first_t > div").click()
+
+            return
 
         else :
+
+
+            driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
+            alert = driver.switch_to.alert
+            alert.accept()
 
             if not os.path.isdir(Math_folder) :
                 
@@ -131,12 +203,44 @@ class Etoos() :
                 Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
 
                 urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")
+
+                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
                 time.sleep(1.0)
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()
+
+            print("출력 완료. 이후 지문 출력이 실행됩니다.")
 
             alert = driver.switch_to.alert
             alert.accept()
+            
+            driver.find_element_by_css_selector("#qstnNum > td.first_t > div").click()
+            return Etoos.crawlingText(total_page)
 
+#     def crawlingText(total_page) :
+# # 문제 1번으로 돌아온 뒤 지문 crawling 
+
+#         try : 
+
+#             for i in range(1, total_page+1) :
+
+#                 Text_PNG_link = driver.find_element_by_css_selector(f"#text_img_nm{i}").get_attribute("src")
+                
+#                 urlretrieve(Text_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/지문{i}번.{filetype}")
+        
+
+
+
+
+
+                        # Text_size = getsize(f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/지문{i}번.{filetype}")
+                        # Text_size_list.append(Text_size)
+
+                    # except NoSuchElementException:  
+
+                    #     print("element 가 존재하지 않습니다용")
+
+                    #     urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")
+                    #     time.sleep(1.0)
+                    #     driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()  
     def countDay() :
 # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
 # 따라서 driver.implicitly_wait() 로 수정했다.
@@ -199,7 +303,6 @@ class Etoos() :
                 print("양식에 맞는 날짜를 입력해주세요.")
                 return Etoos.selectDay(day_list)
 
-
 # 코드 실행 
 Etoos.login()
 
@@ -209,10 +312,8 @@ Etoos.countDay()
 
 Etoos.selectDay(day_list)
 
-Etoos.countTotalPage()
+# Etoos.countTotalPage()
 
-Etoos.crawlingQuestion(total_page, Major, Input_day)
-
-
+# Etoos.crawlingQuestion(total_page, Major, Input_day)
 
 print("정상 작동")
