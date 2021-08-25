@@ -9,7 +9,8 @@
    학생 관리페이지 open
 
 2) selectMajor() :
-   국어 또는 수학 중 희망하는 과목의 시험 페이지 open
+   국어(언매, 화작) 또는 수학(확통~기하) 중 희망하는 과목의 시험 페이지 open
+   이미 들어와있는 페이지일 경우 print 후 return Major
 
 3) countTotalPage() :
     시험 페이지 개수가 총 몇 개인지 카운트
@@ -83,22 +84,22 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
 
 7. urlretrieve : 0번째 index 가 중복돼서 다운로드 되는 현상 발생
 코드 구조가 문제인걸까?
+-> 다시 적었더니 된다.. 뭐지? for 문을 수정하지도 않았다..!
 
 8. Etoos.countDay() 
     retun 속도가 너무 느림 왜 그럴까?
 -> 날짜 출력 시간이 30초 이상 걸려서 이유를 확인해본 결과 selenium 의 기본 time set 은
 30초로 되어있었기 때문이다. 따라서 implicitly.wait() 를 걸어줘서 값이 출력되는 시간을 단축!
 
-
 9. Etoos.crawlingQ(total_page, Major,Input_day) :
     Input_day 가 ex. 08 / 20 이라서 '/' 로 다음 경로가 만들어짐
     어떻게 하나의 하위 폴더만 만들 수 있을까?
 -> makedirs 를 통해 새로운 여러 경로 및 폴더 생성 가능
-   
+-> 각 과목별 -> 날짜별 로 출력 
 <h1> TO-DO </h1>
 
 1. 양식에 맞지 않은 날짜 입력시 오류 해결
-2. urlretrieve 0번 째 index 2번 다운로드 
+2. crawlingQ 가 끝난 후 추가로 crawling 원할 시 과목 입력 후 함수가 종료된다 왜 그런거지?
 3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
 
 <h1> Problem </h1>
