@@ -1,18 +1,17 @@
-from os import major
+
+import os.path
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
-import os.path
-from os.path import getsize
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException, StaleElementReferenceException
 from urllib.request import urlretrieve
 import time
-from selenium.common.exceptions import NoSuchElementException
 
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
-    def __init__(self) :
+    def __init__() :
         print("class Etoos operate")
 
-    def login(self) : 
+    def login() : 
         # 로그인 후 과목 선택 전까지 작동 코드
         try : 
             URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do'
@@ -53,12 +52,18 @@ class Etoos:
             window_after = driver.window_handles[1]
             driver.switch_to_window(window_after)
             return
+
+
+        except NoSuchWindowException :
+            print("실행 중 창이 닫혔습니다.")
+
         except : 
             print("회원 아이디 또는 비밀번호가 일치하지 않습니다.")
             driver.close()
             return Etoos.login()
 
-    def selectMajor(self) : 
+
+    def selectMajor() : 
     # 데일리테스트 - 국어 
         global Major
 
@@ -76,10 +81,10 @@ class Etoos:
 - 2등급거저먹기 미적분 : 미적분2
 - 2등급거저먹기 기하 : 기하2
         """)
-        
-        Major = input("출력이 필요한 과목을 입력하세요 : ")
 
         try :
+
+            Major = input("출력이 필요한 과목을 입력하세요 : ")
             # 국어 선택과목
             if Major == '언매' : 
                 driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
@@ -149,11 +154,31 @@ class Etoos:
                 print("올바른 과목을 입력해주세요.")
                 return Etoos.selectMajor()
 
+        except StaleElementReferenceException:
+            print("일시적 오류입니다.")
+            return Etoos.selectMajor()
+
         except :
-            print("이미 들어와 있는 페이지입니당")
+            print("이미 들어와 있는 페이지입니다.")
             return Major
 
-    def countTotalPage(self) :
+    def addSelectMajor() :
+    
+        add = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
+
+        if add == "예" :
+            driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
+            Etoos.selectMajor()
+
+        elif add == "아니오" :
+            print("프로그램을 종료합니다.")
+            driver.close()
+
+        else :
+            print("올바른 선택지를 입력해주세요.")
+            return Etoos.addSelectMajor()
+
+    def countTotalPage() :
         driver.implicitly_wait(2)
         tatal_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
         position_slash = tatal_page_tag.rfind('/')
@@ -164,268 +189,91 @@ class Etoos:
 
         return total_page
 
-    def crawlingQuestion(self,total_page, Major,Input_day) :
-        
-        edit_Input_day = Input_day.replace("/","")
+    def reading(total_page, Major,Input_day) :
 
+        edit_Input_day = Input_day.replace("/","")
         Reading_folder = f'./국어/{Major}/{edit_Input_day}'
+        filetype = "PNG"
+
+        if not os.path.isdir(Reading_folder) :
+
+            os.makedirs(Reading_folder)
+            time.sleep(1.0)
+
+        for i in range(1, total_page+1) :
+
+            Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+
+            urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")            
+
+            driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
+            time.sleep(1.0)
+
+        alert = driver.switch_to.alert
+        alert.accept()
+
+        Etoos.addSelectMajor()
+
+    def math(total_page, Major,Input_day) :
+    
+        edit_Input_day = Input_day.replace("/","")
         Math_folder = f'./수학/{Major}/{edit_Input_day}'
         filetype = "PNG"
 
+        if not os.path.isdir(Math_folder) :
+
+            os.makedirs(Math_folder)
+            time.sleep(1.0)
+
+        for i in range(1, total_page+1) :
+
+            Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+
+            urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
+
+            driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
+            time.sleep(1.0)
+
+        alert = driver.switch_to.alert
+        alert.accept()
+
+        Etoos.addSelectMajor()
+
+    def crawlingQuestion(total_page, Major,Input_day) :
+        
         if Major == '언매' : 
 
-            if not os.path.isdir(Reading_folder) :
-
-                os.makedirs(Reading_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
+            Etoos.reading(total_page, Major,Input_day)
 
         elif Major == '화작' : 
 
-            if not os.path.isdir(Reading_folder) :
-
-                os.makedirs(Reading_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
+            Etoos.reading(total_page, Major,Input_day)
 
         elif Major == '확통1' : 
 
-            if not os.path.isdir(Math_folder) :
-
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
+            Etoos.math(total_page, Major,Input_day)
 
         elif Major == '미적분1' : 
 
-            if not os.path.isdir(Math_folder) :
+            Etoos.math(total_page, Major,Input_day)                
 
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
-                
         elif Major == '기하1' : 
 
-            if not os.path.isdir(Math_folder) :
+            Etoos.math(total_page, Major,Input_day)
 
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
-                
         elif Major == '확통2' : 
 
-            if not os.path.isdir(Math_folder) :
+            Etoos.math(total_page, Major,Input_day)
 
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
-                
         elif Major == '미적분2' : 
 
-            if not os.path.isdir(Math_folder) :
+            Etoos.math(total_page, Major,Input_day)
 
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
-                
         elif Major == '기하2' : 
 
-            if not os.path.isdir(Math_folder) :
+            Etoos.math(total_page, Major,Input_day)
 
-                os.makedirs(Math_folder)
-                time.sleep(2.0)
-
-            for i in range(1, total_page+1) :
-
-                Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-                urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
-
-                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-                time.sleep(1.0)
-
-            alert = driver.switch_to.alert
-            alert.accept()
-
-            More = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-            if More == "예" :
-                driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-                Etoos.selectMajor()
-
-            else :
-                print("프로그램을 종료합니다.")
-                driver.close()
-
-#     def crawlingText(total_page) :
-# # 문제 1번으로 돌아온 뒤 지문 crawling 
-
-#         try : 
-
-#             for i in range(1, total_page+1) :
-
-#                 Text_PNG_link = driver.find_element_by_css_selector(f"#text_img_nm{i}").get_attribute("src")
-                
-#                 urlretrieve(Text_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/지문{i}번.{filetype}")
-
-                        # Text_size = getsize(f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/지문{i}번.{filetype}")
-                        # Text_size_list.append(Text_size)
-
-                    # except NoSuchElementException:  
-
-                    #     print("element 가 존재하지 않습니다용")
-
-                    #     urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")
-                    #     time.sleep(1.0)
-                    #     driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()  
-    def countDay(self) :
+    def countDay() :
 # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
 # 따라서 driver.implicitly_wait() 로 수정했다.
 
@@ -460,7 +308,7 @@ class Etoos:
                         print("29일까지 입니다.")
                         return day_list
         
-    def selectDay(self,day_list) : 
+    def selectDay(day_list) : 
         
         global Input_day
         Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
@@ -485,9 +333,13 @@ class Etoos:
             if len(Input_day) != 7 :
 
                 print("양식에 맞는 날짜를 입력해주세요.")
-                return Etoos.selectDay(self,day_list)
+                return Etoos.selectDay(day_list)
 
-# 코드 실행 
+            # if Input_day not in keys_to_list :
+            #     print("없는 날짜 입니다.")
+            #     return Etoos.selectDay(day_list)
+
+
 Etoos.login()
 
 Etoos.selectMajor()
@@ -498,6 +350,11 @@ Etoos.selectDay(day_list)
 
 Etoos.countTotalPage()
 
-Etoos.crawlingQuestion(total_page, Major, Input_day)
+Etoos.crawlingQuestion(total_page, Major,Input_day)
+
+
+
+
+
 
 print("정상 작동")
