@@ -2,7 +2,7 @@
 import os.path
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException, StaleElementReferenceException
 from urllib.request import urlretrieve
 import time
 
@@ -23,6 +23,7 @@ class Etoos:
             driver.get(URL)
 
             # 첫 번째로 띄워진 window
+            global window_before
             window_before = driver.window_handles[0]
 
             # ID 작성
@@ -52,14 +53,18 @@ class Etoos:
             window_after = driver.window_handles[1]
             driver.switch_to_window(window_after)
             return
+
+
+        except NoSuchWindowException :
+            print("실행 중 창이 닫혔습니다.")
+
         except : 
             print("회원 아이디 또는 비밀번호가 일치하지 않습니다.")
             driver.close()
             return Etoos.login()
 
+
     def selectMajor() : 
-    # 데일리테스트 - 국어 
-        global Major
 
         print("""
 <선택 과목>
@@ -75,10 +80,10 @@ class Etoos:
 - 2등급거저먹기 미적분 : 미적분2
 - 2등급거저먹기 기하 : 기하2
         """)
-        
-        Major = input("출력이 필요한 과목을 입력하세요 : ")
 
         try :
+
+            Major = input("출력이 필요한 과목을 입력하세요 : ")
             # 국어 선택과목
             if Major == '언매' : 
                 driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
@@ -95,6 +100,7 @@ class Etoos:
                 alert = driver.switch_to.alert
                 alert.accept()
                 return Major            
+
             # 수학 선택과목
             elif Major == '확통1' : 
                 driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
@@ -148,40 +154,44 @@ class Etoos:
                 print("올바른 과목을 입력해주세요.")
                 return Etoos.selectMajor()
 
-        except StaleElementReferenceException:
-            print("일시적 오류입니다.")
+        except StaleElementReferenceException as e:
+            print("일시적 오류입니다.", e)
             return Etoos.selectMajor()
 
         except :
             print("이미 들어와 있는 페이지입니다.")
             return Major
 
-    def addSelectMajor() :
-    
-        add = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
-
-        if add == "예" :
-            driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
-            Etoos.selectMajor()
-
-        elif add == "아니오" :
-            print("프로그램을 종료합니다.")
-            driver.close()
-
-        else :
-            print("올바른 선택지를 입력해주세요.")
-            return Etoos.addSelectMajor()
-
     def countTotalPage() :
+
         driver.implicitly_wait(2)
         tatal_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
         position_slash = tatal_page_tag.rfind('/')
         str(tatal_page_tag)
 
-        global total_page
         total_page = int(tatal_page_tag[-position_slash:])
 
         return total_page
+
+    def addSelectMajor() :
+        
+        add = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
+
+        if add == "예" :
+            driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
+            return Etoos.selectMajor()
+
+        elif add == "아니오" :
+            
+            driver.close()
+            driver.switch_to_window(window_before)
+            driver.close()
+
+            return False
+
+        else :
+            print("올바른 선택지를 입력해주세요.")
+            return Etoos.addSelectMajor()
 
     def reading(total_page, Major,Input_day) :
 
@@ -205,8 +215,7 @@ class Etoos:
 
         alert = driver.switch_to.alert
         alert.accept()
-
-        Etoos.addSelectMajor()
+        return 
 
     def math(total_page, Major,Input_day) :
     
@@ -230,49 +239,11 @@ class Etoos:
 
         alert = driver.switch_to.alert
         alert.accept()
-
-        Etoos.addSelectMajor()
-
-    def crawlingQuestion(total_page, Major,Input_day) :
-        
-        if Major == '언매' : 
-
-            Etoos.reading(total_page, Major,Input_day)
-
-        elif Major == '화작' : 
-
-            Etoos.reading(total_page, Major,Input_day)
-
-        elif Major == '확통1' : 
-
-            Etoos.math(total_page, Major,Input_day)
-
-        elif Major == '미적분1' : 
-
-            Etoos.math(total_page, Major,Input_day)                
-
-        elif Major == '기하1' : 
-
-            Etoos.math(total_page, Major,Input_day)
-
-        elif Major == '확통2' : 
-
-            Etoos.math(total_page, Major,Input_day)
-
-        elif Major == '미적분2' : 
-
-            Etoos.math(total_page, Major,Input_day)
-
-        elif Major == '기하2' : 
-
-            Etoos.math(total_page, Major,Input_day)
+        return
 
     def countDay() :
 # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
 # 따라서 driver.implicitly_wait() 로 수정했다.
-
-        global day_list
-        global day_values
         day_list = []
 
         for week in range(1,6) :
@@ -280,6 +251,7 @@ class Etoos:
             for day in range(1, 6) :
 
                 driver.implicitly_wait(0.1)
+
                 try : 
                     day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
                     day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
@@ -287,6 +259,18 @@ class Etoos:
                     days = {day_key : day_values}
                     
                     day_list.append(days)
+
+                    if '31' in day_list[-1].keys() : 
+                        print("31일까지 입니다.") 
+                        return day_list
+
+                    elif '31' not in day_list[-1].keys() and '30' in day_list[-1].keys() :
+                        print("30일까지 입니다.")
+                        return day_list
+
+                    elif '30' not in day_list[-1].keys() and '29' in day_list[-1].keys() :
+                        print("29일까지 입니다.")
+                        return day_list
 
                 except NoSuchElementException:
 
@@ -301,10 +285,11 @@ class Etoos:
                     elif '30' not in day_list[-1].keys() and '29' in day_list[-1].keys() :
                         print("29일까지 입니다.")
                         return day_list
-        
+
+        return day_list
+
     def selectDay(day_list) : 
-        
-        global Input_day
+
         Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
 
         list_Input_day = f"['{Input_day}']"
@@ -324,11 +309,58 @@ class Etoos:
                 alert = driver.switch_to.alert
                 alert.accept()
 
-            if len(Input_day) != 7 :
+                return Input_day
+
+            elif len(Input_day) != 7 :
 
                 print("양식에 맞는 날짜를 입력해주세요.")
                 return Etoos.selectDay(day_list)
 
-            # if Input_day not in keys_to_list :
+            # elif Input_day not in keys_to_list :
             #     print("없는 날짜 입니다.")
             #     return Etoos.selectDay(day_list)
+            
+
+    def crawlingQuestion(total_page, Major,Input_day) :
+        
+        if Major == '언매' : 
+
+            Etoos.reading(total_page, Major,Input_day)
+            Etoos.addSelectMajor()
+            # 여기서 selectDay 가 다시 이루어지고
+            # 크롤링이 다시 이뤄져야함
+            
+        elif Major == '화작' : 
+
+            Etoos.reading(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
+
+        elif Major == '확통1' : 
+
+            Etoos.math(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
+
+        elif Major == '미적분1' : 
+
+            Etoos.math(total_page, Major,Input_day)                
+            return Etoos.addSelectMajor()
+
+        elif Major == '기하1' : 
+
+            Etoos.math(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
+
+        elif Major == '확통2' : 
+
+            Etoos.math(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
+
+        elif Major == '미적분2' : 
+
+            Etoos.math(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
+
+        elif Major == '기하2' : 
+
+            Etoos.math(total_page, Major,Input_day)
+            return Etoos.addSelectMajor()
