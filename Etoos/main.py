@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoAlertPresentException, NoSuchElementExc
 from urllib.request import urlretrieve
 import time
 from dotenv import load_dotenv
-
+from cv import cropImage
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
     def __init__() :
@@ -233,19 +233,19 @@ class Etoos:
                     print("양식에 맞는 날짜를 입력해주세요.")
                     return Etoos.selectDay(day_list)
 
-                elif NoSuchElementException :
-                    print("없는 날짜입니다.") 
-                    return Etoos.selectDay(day_list)
-
-                elif NoAlertPresentException :
-            
-                    print("오류 발생")
-                    return Etoos.selectDay(day_list)
-
             except :
 
                 print("기타 오류 발생")
                 return Etoos.selectDay(day_list)
+
+        if NoSuchElementException :
+            print("없는 날짜입니다.") 
+            return Etoos.selectDay(day_list)
+
+        if NoAlertPresentException :
+
+            print("오류 발생")
+            return Etoos.selectDay(day_list)
 
     def countTotalPage() :
 
@@ -272,9 +272,12 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-            urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}")            
+            path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}"
+            urlretrieve(Question_PNG_link, path)            
             print(f"문제{i}번 다운로드 완료")
+            cropImage(path)
+            time.sleep(1.0)
+
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
 
@@ -297,9 +300,12 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-
-            urlretrieve(Question_PNG_link, f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}")            
+            path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}"
+            urlretrieve(Question_PNG_link, path)            
             print(f"문제{i}번 다운로드 완료")
+            cropImage(path)
+            time.sleep(1.0)
+
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
 
@@ -326,7 +332,7 @@ class Etoos:
             driver.switch_to_window(window_before)
             driver.close()
             
-            return False
+            return
 
         else :
             print("올바른 선택지를 입력해주세요.")
@@ -381,8 +387,9 @@ while True :
     
     Etoos.crawlingQuestion(total_page, Major, Input_day)
 
-    Etoos.addSelectMajor()
+    add = Etoos.addSelectMajor()
 
     print("여기까지 한 바퀴")
 
-# 추가과목 : 예 -> input 2번 뜸
+    if add == "아니오" :
+        break
