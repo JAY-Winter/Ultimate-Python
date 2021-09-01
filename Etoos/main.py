@@ -1,7 +1,12 @@
 import os.path
 from selenium import webdriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException, NoSuchWindowException, StaleElementReferenceException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from urllib.request import urlretrieve
 import time
 from dotenv import load_dotenv
@@ -11,12 +16,15 @@ class Etoos:
     def __init__() :
         print("class Etoos operate")
 
+
+
+
     def login() : 
         # 로그인 후 과목 선택 전까지 작동 코드
         try : 
             URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do'
+            
             load_dotenv()
-
             ID = os.environ.get("ID")
             PW = os.environ.get("PW")
 
@@ -65,6 +73,10 @@ class Etoos:
             driver.close()
             return Etoos.login()
 
+
+
+
+
     def selectMajor() : 
 
         print("""
@@ -88,9 +100,10 @@ class Etoos:
             # 국어 선택과목
             if Major == '언매' : 
                 driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
-                time.sleep(0.5)
+                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]")))
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -99,6 +112,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major            
 
@@ -108,6 +122,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -116,6 +131,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -124,6 +140,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[3]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -132,6 +149,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[4]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -140,6 +158,7 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[5]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
 
@@ -148,20 +167,29 @@ class Etoos:
                 time.sleep(0.5)
                 driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[6]").click()
                 alert = driver.switch_to.alert
+                time.sleep(0.5)
                 alert.accept()
                 return Major
+            
+            # if StaleElementReferenceException :
+            #     print("c 오류입니다.")
+            #     return Etoos.selectMajor()
 
             else :
                 print("올바른 과목을 입력해주세요.")
                 return Etoos.selectMajor()
 
-        except StaleElementReferenceException as e:
-            print("일시적 오류입니다.", e)
-            return Etoos.selectMajor()
+        # except StaleElementReferenceException as e : 
+        #     print("일시적 오류입니다.", e)
+        #     return Etoos.selectMajor()
 
-        except :
-            print("이미 들어와 있는 페이지입니다.")
+        except NoAlertPresentException as e :
+            print("이미 들어와 있는 페이지입니다.", e)
             return Major
+
+
+
+
 
     def countDay() :
 # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
@@ -182,70 +210,94 @@ class Etoos:
                     
                     day_list.append(days)
 
+                    day_list_last_key = list(day_list[-1].keys())
+
                 except NoSuchElementException:
-                    print("작업 완료")
+                    print("달력에 표시되지 않은 날입니다.")
+                    pass
+        
+        for i in range(len(day_list)) :
 
-                    list_to_day_list_key = list(day_list[-1].keys())
+            if '31' in day_list_last_key[0] : 
+                print("31일까지 입니다.") 
+                return day_list
 
-                    if '31' in list_to_day_list_key[0] : 
-                        print("31일까지 입니다.") 
-                        return day_list
+            elif '31' not in day_list_last_key[0] and '30' in day_list_last_key[0] :
+                print("30일까지 입니다.")
+                return day_list
 
-                    elif '31' not in list_to_day_list_key[0] and '30' in list_to_day_list_key[0] :
-                        print("30일까지 입니다.")
-                        return day_list
+            elif '30' not in day_list_last_key[0] and '29' in day_list_last_key[0] :
+                print("29일까지 입니다.")
+                return day_list
 
-                    elif '30' not in list_to_day_list_key[0] and '29' in list_to_day_list_key[0] :
-                        print("29일까지 입니다.")
-                        return day_list
+            elif '29' not in day_list_last_key[0] and '28' in day_list_last_key[0] :
+                print("28일까지 입니다.")
+                return day_list
 
-                    else :
-                        print("일단 리턴")
-                        return day_list
+
+
+
 
     def selectDay(day_list) : 
 
-        Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
+        try :
+            Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
 
-        list_Input_day = f"['{Input_day}']"
+            list_Input_day = f"['{Input_day}']"
 
-        keys_to_list = []
-        values_to_list = []
+            keys_to_list = []
+            values_to_list = []
 
-        for i in range(len(day_list)) :
+            for i in range(len(day_list)) :
 
-            try :
+                try :
 
-                keys_to_list.append(str(list(day_list[i].keys())))
+                    keys_to_list.append(str(list(day_list[i].keys())))
 
-                if list_Input_day == keys_to_list[i] :
+                    if list_Input_day == keys_to_list[i] :
 
-                    values_to_list = list(day_list[i].values())
-                    values_to_list[0].click()
+                        values_to_list = list(day_list[i].values())
+                        values_to_list[0].click()
 
-                    alert = driver.switch_to.alert
-                    alert.accept()
+                        alert = driver.switch_to.alert
+                        time.sleep(0.5)
+                        alert.accept()
 
-                    return Input_day
+                        # if NoSuchElementException :
+                        #     print("아직 오픈되지 않은 시험입니다.") 
+                        #     return Etoos.selectDay(day_list)
 
-                elif len(Input_day) != 7 :
+                        # else :
+                        #     pass
 
-                    print("양식에 맞는 날짜를 입력해주세요.")
+                        # else :
+                        return Input_day
+
+                    elif len(Input_day) != 7 :
+
+                        print("양식에 맞는 날짜를 입력해주세요.")
+                        return Etoos.selectDay(day_list)
+
+                except :
+
+                    print("기타 오류 발생")
                     return Etoos.selectDay(day_list)
 
-            except :
+            # if NoSuchElementException :
+            #     print("없는 날짜입니다.") 
+            #     return Etoos.selectDay(day_list)
 
-                print("기타 오류 발생")
-                return Etoos.selectDay(day_list)
+            # if NoAlertPresentException :
 
-        if NoSuchElementException :
-            print("없는 날짜입니다.") 
+            #     print("일시적 오류 발생")
+            #     return Etoos.selectDay(day_list)
+
+        except :
+            print("기타 오류입니다.!")
             return Etoos.selectDay(day_list)
 
-        if NoAlertPresentException :
 
-            print("오류 발생")
-            return Etoos.selectDay(day_list)
+
 
     def countTotalPage() :
 
@@ -258,10 +310,14 @@ class Etoos:
 
         return total_page
 
+
+
+    
+
     def reading(total_page, Major,Input_day) :
 
         edit_Input_day = Input_day.replace("/","")
-        Reading_folder = f'./국어/{Major}/{edit_Input_day}'
+        Reading_folder = f'./국어/{edit_Input_day}'
         filetype = "PNG"
 
         if not os.path.isdir(Reading_folder) :
@@ -272,10 +328,11 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/문제{i}번.{filetype}"
-            urlretrieve(Question_PNG_link, path)            
-            print(f"문제{i}번 다운로드 완료")
-            cropImage(path)
+            FilePath = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/{Major} 문제{i}번.{filetype}"
+
+            urlretrieve(Question_PNG_link, FilePath)            
+            print(f"{Major} 문제{i}번 다운로드 완료")
+            cropImage(FilePath)
             time.sleep(1.0)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
@@ -286,10 +343,14 @@ class Etoos:
 
         return
 
+
+
+
+
     def math(total_page, Major,Input_day) :
     
         edit_Input_day = Input_day.replace("/","")
-        Math_folder = f'./수학/{Major}/{edit_Input_day}'
+        Math_folder = f'./수학/{edit_Input_day}'
         filetype = "PNG"
 
         if not os.path.isdir(Math_folder) :
@@ -300,19 +361,56 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/문제{i}번.{filetype}"
-            urlretrieve(Question_PNG_link, path)            
+            # Folder_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}"
+            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/{Major} 문제{i}번.{filetype}"
+
+            # if os.listdir(Folder_Path) == 0 :
+            # ##### 폴더 내 파일 개수가 0개 이면 다운로드 실행 ! 이후 중복된 파일 있으면 pass, else 다운로드
+            #     print("폴더 내 파일 개수가 0 개 입니닷")
+
+            
+            urlretrieve(Question_PNG_link, File_Path)
             print(f"문제{i}번 다운로드 완료")
-            cropImage(path)
+            cropImage(File_Path)
             time.sleep(1.0)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
-
+            # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2먼 다운로드 되지 않게 함
         alert = driver.switch_to.alert
         alert.accept()
 
         return
+
+
+
+
+
+    def countFileList(path) :
+            # 동일한 파일을 어떻게 삭제할 것인가?
+            # if not File_Size in File_Size_list :
+            #     urlretrieve(Question_PNG_link, path)            
+            # else :
+            #     print("중복된 문제입니다.")
+        # File_Size_list = []
+        # File_Size = os.path.getsize(path)
+        # File_Size_list.append(File_Size)
+        # print(File_Size_list)
+        path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/{Major} 문제{i}번.{filetype}"
+
+        Filepath = path
+
+        File_List = os.listdir(Filepath)
+        File_Size = os.path.getsize(path)
+
+
+        for i in range(len(File_List)) :
+
+
+
+            pass
+
+
 
     def addSelectMajor() :
 
@@ -332,11 +430,15 @@ class Etoos:
             driver.switch_to_window(window_before)
             driver.close()
             
-            return
+            return False
 
         else :
             print("올바른 선택지를 입력해주세요.")
             return Etoos.addSelectMajor()
+
+
+
+
 
     def crawlingQuestion(total_page, Major,Input_day) :
         
@@ -373,6 +475,8 @@ class Etoos:
 
             Etoos.math(total_page, Major,Input_day)
 
+
+
 Etoos.login()
 
 while True :
@@ -387,9 +491,6 @@ while True :
     
     Etoos.crawlingQuestion(total_page, Major, Input_day)
 
-    add = Etoos.addSelectMajor()
+    Etoos.addSelectMajor()
 
     print("여기까지 한 바퀴")
-
-    if add == "아니오" :
-        break

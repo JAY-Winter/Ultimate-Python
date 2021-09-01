@@ -8,6 +8,7 @@ def crop(im) :
     diff = ImageChops.difference(im, bg)
     diff = ImageChops.add(diff, diff, 2.0, -100)
     bbox = diff.getbbox()
+    
     if bbox:
         return im.crop(bbox)
 
@@ -15,9 +16,11 @@ def crop(im) :
         print("실패")
         return
 
-im = Image.open("/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/08  23/지문3번.PNG")
+im = Image.open("/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG")
 
-im = crop(im)
+print(im.size)
 
-im.show()
+crop(im)
+
+print(im.size)
 

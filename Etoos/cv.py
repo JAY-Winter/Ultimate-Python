@@ -1,9 +1,9 @@
 import cv2
 
-def cropImage(path) :
+def cropImage(FilePath) :
 # Load image, grayscale, Gaussian blur, Otsu's threshold
 
-    image = cv2.imread(path)
+    image = cv2.imread(FilePath)
     original = image.copy()
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (25,25), 0)
@@ -23,11 +23,11 @@ def cropImage(path) :
 
     # image = cv2.imshow('/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG', crop)
 
-    image = cv2.imwrite(path, crop)
+    image = cv2.imwrite(FilePath, crop)
 
 
-path = '/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG'
-cropImage(path)
+FilePath = '/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG'
+cropImage(FilePath)
 
 
 
