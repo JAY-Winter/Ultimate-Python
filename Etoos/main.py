@@ -18,4 +18,4 @@ while True :
     add = Etoos.addSelectMajor()
     
     if add == False:
-        break
+        break 
