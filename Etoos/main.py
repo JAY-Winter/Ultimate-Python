@@ -15,7 +15,7 @@ while True :
     
     Etoos.crawlingQuestion(total_page, Major, Input_day)
 
-    add = Etoos.addSelectMajor()
+    isAdded = Etoos.addSelectMajor()
     
-    if add == False:
+    if isAdded == False:
         break 

@@ -328,9 +328,10 @@ class Etoos:
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
             FilePath = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/{Major} 문제{i}번.{filetype}"
-
+            # Question_PNG_link 뜨는거 기다려야할듯 중복 다운로드됨
             urlretrieve(Question_PNG_link, FilePath)            
             print(f"{Major} 문제{i}번 다운로드 완료")
+            time.sleep(0.5)
             cropImage(FilePath)
             time.sleep(1.0)
 
@@ -413,13 +414,13 @@ class Etoos:
 
     def addSelectMajor() :
 
-        add = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
+        isAdded = input("출력이 더 필요한 과목이 있습니까?(예 또는 아니오) : ")
 
-        if add == "예" :
+        if isAdded == "예" :
             driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
             pass
 
-        elif add == "아니오" :
+        elif isAdded == "아니오" :
 
             print("""
 프로그램을 종료합니다.
