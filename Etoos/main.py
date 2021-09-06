@@ -19,3 +19,8 @@ while True :
     
     if isAdded == False:
         break 
+
+
+
+
+#기하1 1번 문제 520 × 438

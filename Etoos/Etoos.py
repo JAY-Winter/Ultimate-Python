@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from urllib.request import urlretrieve
 import time
 from dotenv import load_dotenv
-from cv import cropImage
+from editImg import cropImage, resizeImage
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
     def __init__() :
@@ -316,24 +316,28 @@ class Etoos:
     def reading(total_page, Major,Input_day) :
 
         edit_Input_day = Input_day.replace("/","")
-        Reading_folder = f'./국어/{edit_Input_day}'
+        folder_path = f'./국어/{edit_Input_day}'
         filetype = "PNG"
 
-        if not os.path.isdir(Reading_folder) :
+        if not os.path.isdir(folder_path) :
 
-            os.makedirs(Reading_folder)
+            os.makedirs(folder_path)
             time.sleep(1.0)
 
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            FilePath = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Reading_folder}/{Major} 문제{i}번.{filetype}"
+            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{filetype}"
             # Question_PNG_link 뜨는거 기다려야할듯 중복 다운로드됨
-            urlretrieve(Question_PNG_link, FilePath)            
+            urlretrieve(Question_PNG_link, File_Path)            
             print(f"{Major} 문제{i}번 다운로드 완료")
             time.sleep(0.5)
-            cropImage(FilePath)
-            time.sleep(1.0)
+
+            cropImage(File_Path)
+            time.sleep(0.5)
+
+            resizeImage(File_Path)
+            time.sleep(0.5)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
@@ -350,29 +354,27 @@ class Etoos:
     def math(total_page, Major,Input_day) :
     
         edit_Input_day = Input_day.replace("/","")
-        Math_folder = f'./수학/{edit_Input_day}'
+        folder_path = f'./수학/{edit_Input_day}'
         filetype = "PNG"
 
-        if not os.path.isdir(Math_folder) :
+        if not os.path.isdir(folder_path) :
 
-            os.makedirs(Math_folder)
+            os.makedirs(folder_path)
             time.sleep(1.0)
 
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            # Folder_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}"
-            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/{Major} 문제{i}번.{filetype}"
+            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{filetype}"
 
-            # if os.listdir(Folder_Path) == 0 :
-            # ##### 폴더 내 파일 개수가 0개 이면 다운로드 실행 ! 이후 중복된 파일 있으면 pass, else 다운로드
-            #     print("폴더 내 파일 개수가 0 개 입니닷")
-
-            
             urlretrieve(Question_PNG_link, File_Path)
             print(f"문제{i}번 다운로드 완료")
+
             cropImage(File_Path)
-            time.sleep(1.0)
+            time.sleep(0.5)
+
+            resizeImage(File_Path)
+            time.sleep(0.5)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
@@ -383,32 +385,6 @@ class Etoos:
         return
 
 
-
-
-
-    def countFileList(path) :
-            # 동일한 파일을 어떻게 삭제할 것인가?
-            # if not File_Size in File_Size_list :
-            #     urlretrieve(Question_PNG_link, path)            
-            # else :
-            #     print("중복된 문제입니다.")
-        # File_Size_list = []
-        # File_Size = os.path.getsize(path)
-        # File_Size_list.append(File_Size)
-        # print(File_Size_list)
-        path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{Math_folder}/{Major} 문제{i}번.{filetype}"
-
-        Filepath = path
-
-        File_List = os.listdir(Filepath)
-        File_Size = os.path.getsize(path)
-
-
-        for i in range(len(File_List)) :
-
-
-
-            pass
 
 
 

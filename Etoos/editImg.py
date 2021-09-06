@@ -1,9 +1,10 @@
 import cv2
+from PIL import Image
 
-def cropImage(FilePath) :
+def cropImage(File_Path) :
 # Load image, grayscale, Gaussian blur, Otsu's threshold
 
-    image = cv2.imread(FilePath)
+    image = cv2.imread(File_Path)
     original = image.copy()
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (25,25), 0)
@@ -21,13 +22,19 @@ def cropImage(FilePath) :
     cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
     crop = original[y:y+h, x:x+w]
 
-    # image = cv2.imshow('/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG', crop)
+    # save reImage
+    image = cv2.imwrite(File_Path, crop)
 
-    image = cv2.imwrite(FilePath, crop)
 
 
-FilePath = '/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/img/문제1번.PNG'
-cropImage(FilePath)
+def resizeImage(File_Path) :
 
+    img = Image.open(f"{File_Path}")
+    print(img.size)
+    img_resize = img.resize( (int(img.width * 0.75), int(img.height * 0.75) ))
+
+    img_resize.save(f"{File_Path}")
+    print(img_resize.size)
+    return 
 
 
