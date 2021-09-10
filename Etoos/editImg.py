@@ -30,11 +30,9 @@ def cropImage(File_Path) :
 def resizeImage(File_Path) :
 
     img = Image.open(f"{File_Path}")
-    print(img.size)
+
     img_resize = img.resize( (int(img.width * 0.75), int(img.height * 0.75) ))
 
-    img_resize.save(f"{File_Path}")
-    print(img_resize.size)
-    return 
+    return img_resize.save(f"{File_Path}")
 
 

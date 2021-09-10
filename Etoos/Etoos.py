@@ -169,18 +169,10 @@ class Etoos:
                 time.sleep(0.5)
                 alert.accept()
                 return Major
-            
-            # if StaleElementReferenceException :
-            #     print("c 오류입니다.")
-            #     return Etoos.selectMajor()
 
             else :
                 print("올바른 과목을 입력해주세요.")
                 return Etoos.selectMajor()
-
-        # except StaleElementReferenceException as e : 
-        #     print("일시적 오류입니다.", e)
-        #     return Etoos.selectMajor()
 
         except NoAlertPresentException as e :
             print("이미 들어와 있는 페이지입니다.", e)
@@ -262,14 +254,6 @@ class Etoos:
                         time.sleep(0.5)
                         alert.accept()
 
-                        # if NoSuchElementException :
-                        #     print("아직 오픈되지 않은 시험입니다.") 
-                        #     return Etoos.selectDay(day_list)
-
-                        # else :
-                        #     pass
-
-                        # else :
                         return Input_day
 
                     elif len(Input_day) != 7 :
@@ -281,15 +265,6 @@ class Etoos:
 
                     print("기타 오류 발생")
                     return Etoos.selectDay(day_list)
-
-            # if NoSuchElementException :
-            #     print("없는 날짜입니다.") 
-            #     return Etoos.selectDay(day_list)
-
-            # if NoAlertPresentException :
-
-            #     print("일시적 오류 발생")
-            #     return Etoos.selectDay(day_list)
 
         except :
             print("기타 오류입니다.!")
@@ -311,7 +286,7 @@ class Etoos:
 
 
 
-    
+
 
     def reading(total_page, Major,Input_day) :
 
