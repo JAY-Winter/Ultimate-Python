@@ -25,7 +25,7 @@ Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
 for subject in range(len_subject) :
 
     subject = Etoos.selectsubject(subject)
-    # 
+    
     day_list = Etoos.countDay()
 
     var_Input_day = Etoos.selectDay(day_list, Input_day)
@@ -37,3 +37,4 @@ for subject in range(len_subject) :
     Etoos.addSelectsubject()
     
 Etoos.closedriver()
+

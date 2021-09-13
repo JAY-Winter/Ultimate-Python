@@ -1,10 +1,10 @@
 import cv2
 from PIL import Image
 
-def cropImage(File_Path) :
+def cropImage(file_path) :
 # Load image, grayscale, Gaussian blur, Otsu's threshold
 
-    image = cv2.imread(File_Path)
+    image = cv2.imread(file_path)
     original = image.copy()
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (25,25), 0)
@@ -23,16 +23,16 @@ def cropImage(File_Path) :
     crop = original[y:y+h, x:x+w]
 
     # save reImage
-    image = cv2.imwrite(File_Path, crop)
+    image = cv2.imwrite(file_path, crop)
 
 
 
-def resizeImage(File_Path) :
+def resizeImage(file_path) :
 
-    img = Image.open(f"{File_Path}")
+    img = Image.open(f"{file_path}")
 
     img_resize = img.resize( (int(img.width * 0.75), int(img.height * 0.75) ))
 
-    return img_resize.save(f"{File_Path}")
+    return img_resize.save(f"{file_path}")
 
 

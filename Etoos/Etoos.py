@@ -10,6 +10,7 @@ from urllib.request import urlretrieve
 import time
 from dotenv import load_dotenv
 from editImg import cropImage, resizeImage
+from getHash import getHash
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
     def __init__() :
@@ -292,7 +293,7 @@ class Etoos:
 
         edit_Input_day = Input_day.replace("/","")
         folder_path = f'./국어/{edit_Input_day}'
-        filetype = "PNG"
+        file_type = "PNG"
 
         if not os.path.isdir(folder_path) :
 
@@ -302,7 +303,7 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{filetype}"
+            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{file_type}"
             # Question_PNG_link 뜨는거 기다려야할듯 중복 다운로드됨
             urlretrieve(Question_PNG_link, File_Path)            
             print(f"{Major} 문제{i}번 다운로드 완료")
@@ -330,7 +331,7 @@ class Etoos:
     
         edit_Input_day = Input_day.replace("/","")
         folder_path = f'./수학/{edit_Input_day}'
-        filetype = "PNG"
+        file_type = "PNG"
 
         if not os.path.isdir(folder_path) :
 
@@ -340,7 +341,7 @@ class Etoos:
         for i in range(1, total_page+1) :
 
             Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{filetype}"
+            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{Major} 문제{i}번.{file_type}"
 
             urlretrieve(Question_PNG_link, File_Path)
             print(f"문제{i}번 다운로드 완료")

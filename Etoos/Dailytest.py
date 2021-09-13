@@ -1,3 +1,4 @@
+from getHash import getHash
 import os.path
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -224,6 +225,9 @@ class Etoos:
             print("일시적 오류입니다.",e)
             pass
 
+
+
+
     def countDay() :
 # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
 # 따라서 driver.implicitly_wait() 로 수정했다.
@@ -331,79 +335,85 @@ class Etoos:
     def reading(total_page, subject, var_Input_day) :
 
         edit_var_Input_day = var_Input_day.replace("/","")
-        folder_path = f'./국어/{edit_var_Input_day}'
+        kor_folder_path = f'/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}'
         filetype = "PNG"
 
-        if not os.path.isdir(folder_path) :
-
-            os.makedirs(folder_path)
-            time.sleep(1.0)
-
-        for i in range(1, total_page+1) :
-
-            Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{subject} 문제{i}번.{filetype}"
-            # Question_PNG_link 뜨는거 기다려야할듯 중복 다운로드됨
-            urlretrieve(Question_PNG_link, File_Path)            
-            print(f"{subject} 문제{i}번 다운로드 완료")
+        def downloadAndeditImg(question_link, file_path, subject) :
+            
+            urlretrieve(question_link, file_path)            
+            print(f"{subject} 문제{page}번 다운로드 완료")
             time.sleep(0.5)
 
-            cropImage(File_Path)
+            cropImage(file_path)
             time.sleep(0.5)
 
-            resizeImage(File_Path)
+            resizeImage(file_path)
             time.sleep(0.5)
+
+        if not os.path.isdir(kor_folder_path) :
+        
+            print("폴더를 생성합니다.")            
+            os.makedirs(kor_folder_path)
+            time.sleep(0.5)
+
+        for page in range(1, total_page+1) :
+
+            question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+            file_path = f"{kor_folder_path}/{subject} 문제{page}번.{filetype}"
+            
+            downloadAndeditImg(question_link, file_path, subject)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
 
-        alert = driver.switch_to.alert
-        alert.accept()
-
-        return
-
-
-
+        return kor_folder_path
 
 
     def math(total_page, subject, var_Input_day) :
     
         edit_var_Input_day = var_Input_day.replace("/","")
-        folder_path = f'./수학/{edit_var_Input_day}'
+        math_folder_path = f'/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}'
         filetype = "PNG"
 
-        if not os.path.isdir(folder_path) :
+        def downloadAndeditImg(question_link, file_path, subject) :
+            
+            urlretrieve(question_link, file_path)            
+            print(f"{subject} 문제{i}번 다운로드 완료")
+            time.sleep(0.25)
 
-            os.makedirs(folder_path)
-            time.sleep(1.0)
+            cropImage(file_path)
+            time.sleep(0.25)
+
+            resizeImage(file_path)
+            time.sleep(0.25)
+
+        if not os.path.isdir(math_folder_path) :
+        
+            print("폴더를 생성합니다.")            
+            os.makedirs(math_folder_path)
+            time.sleep(0.5)
 
         for i in range(1, total_page+1) :
 
-            Question_PNG_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            File_Path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/{folder_path}/{subject} 문제{i}번.{filetype}"
+            question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+            file_path = f"{math_folder_path}/{subject} 문제{i}번.{filetype}"
 
-            urlretrieve(Question_PNG_link, File_Path)
-            print(f"{subject} 문제{i}번 다운로드 완료")
-
-            cropImage(File_Path)
-            time.sleep(0.5)
-
-            resizeImage(File_Path)
-            time.sleep(0.5)
+            downloadAndeditImg(question_link, file_path, subject)
 
             driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
             time.sleep(1.0)
             # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2먼 다운로드 되지 않게 함
-        alert = driver.switch_to.alert
-        alert.accept()
 
-        return
+
+        return math_folder_path
 
 
 
 
 
     def addSelectsubject() :
+        alert = driver.switch_to.alert
+        alert.accept()
 
         print("다음 과목으로 넘어갑니다.")
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
@@ -413,45 +423,46 @@ class Etoos:
 
 
 
-    def crawlingQuestion(total_page, subject,var_Input_day) :
-        
+    def crawlingQuestion(total_page, subject, var_Input_day) :
+
         if subject == '언매' : 
 
-            Etoos.reading(total_page, subject,var_Input_day)
+            Etoos.reading(total_page, subject, var_Input_day)
             # 여기서 selectDay 가 다시 이루어지고
             # 크롤링이 다시 이뤄져야함
 
         elif subject == '화작' : 
-            Etoos.reading(total_page, subject,var_Input_day)
+            Etoos.reading(total_page, subject, var_Input_day)
 
         elif subject == '확통1' : 
 
-            Etoos.math(total_page, subject,var_Input_day)
+            Etoos.math(total_page, subject, var_Input_day)
 
         elif subject == '미적분1' : 
 
-            Etoos.math(total_page, subject,var_Input_day)                
+            Etoos.math(total_page, subject, var_Input_day)                
 
         elif subject == '기하1' : 
 
-            Etoos.math(total_page, subject,var_Input_day)
+            Etoos.math(total_page, subject, var_Input_day)
 
         elif subject == '확통2' : 
 
-            Etoos.math(total_page, subject,var_Input_day)
+            Etoos.math(total_page, subject, var_Input_day)
 
         elif subject == '미적분2' : 
 
-            Etoos.math(total_page, subject,var_Input_day)
+            Etoos.math(total_page, subject, var_Input_day)
 
         elif subject == '기하2' : 
 
-            Etoos.math(total_page, subject,var_Input_day)
+            math_folder_path = Etoos.math(total_page, subject, var_Input_day)
 
 
 
 
     def closedriver() :
+
         print("""
 프로그램을 종료합니다.
 문의 : ETOOS247 일산동구점 정재현
@@ -461,4 +472,16 @@ class Etoos:
         driver.switch_to_window(window_before)
         driver.close()
 
+        
+
         return 
+
+
+
+
+    def removeDuplicatedQuestion(kor_folder_path, math_folder_path) :
+        
+        kor_file_list = os.listdir(kor_folder_path)
+        math_file_list = os.listdir(math_folder_path)
+
+        pass
