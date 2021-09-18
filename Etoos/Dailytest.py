@@ -27,14 +27,14 @@ class Etoos:
     def login() : 
         # 로그인 후 과목 선택 전까지 작동 코드
         try : 
-            URL = 'https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do'
+            URL = "https://www.etoos.com/member/login.asp?returnUrl=http://ilsandonggu247.etoos.com/lms/index.do"
             
             load_dotenv()
             ID = os.environ.get("ID")
             PW = os.environ.get("PW")
 
             global driver
-            driver = webdriver.Chrome('chromedriver')
+            driver = webdriver.Chrome("chromedriver")
             driver.get(URL)
 
             # 첫 번째로 띄워진 window
@@ -87,7 +87,7 @@ class Etoos:
         try : 
             # 국어 선택과목
             if subject == 0 : 
-                subject = '언매'
+                subject = "언매"
                 try :
                 # 국어 과목 클릭
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
@@ -106,7 +106,7 @@ class Etoos:
 
 
             elif subject == 1 : 
-                subject = '화작'
+                subject = "화작"
 
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
@@ -123,7 +123,7 @@ class Etoos:
 
             # 수학 선택과목
             elif subject == 2 : 
-                subject = '확통1'              
+                subject = "확통1"              
 
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
@@ -140,7 +140,7 @@ class Etoos:
                     return subject
 
             elif subject == 3 : 
-                subject = '미적분1'
+                subject = "미적분1"
 
                 try : 
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
@@ -158,8 +158,8 @@ class Etoos:
                     return subject
 
             elif subject == 4 : 
-                subject = '기하1'
-                                
+                subject = "기하1"
+
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
@@ -175,7 +175,7 @@ class Etoos:
                     return subject
 
             elif subject == 5 :
-                subject = '확통2'
+                subject = "확통2"
 
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
@@ -191,7 +191,7 @@ class Etoos:
                     return subject
 
             elif subject == 6 :
-                subject = '미적분2' 
+                subject = "미적분2" 
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
@@ -206,7 +206,7 @@ class Etoos:
                     print("이미 들어와 있는 페이지입니다.", e)
                     return subject
             elif subject == 7 : 
-                subject = '기하2'
+                subject = "기하2"
 
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
@@ -254,19 +254,19 @@ class Etoos:
         
         for i in range(len(day_list)) :
 
-            if '31' in day_list_last_key[0] : 
+            if "31" in day_list_last_key[0] : 
                 print("31일까지 입니다.") 
                 return day_list
 
-            elif '31' not in day_list_last_key[0] and '30' in day_list_last_key[0] :
+            elif "31" not in day_list_last_key[0] and "30" in day_list_last_key[0] :
                 print("30일까지 입니다.")
                 return day_list
 
-            elif '30' not in day_list_last_key[0] and '29' in day_list_last_key[0] :
+            elif "30" not in day_list_last_key[0] and "29" in day_list_last_key[0] :
                 print("29일까지 입니다.")
                 return day_list
 
-            elif '29' not in day_list_last_key[0] and '28' in day_list_last_key[0] :
+            elif "29" not in day_list_last_key[0] and "28" in day_list_last_key[0] :
                 print("28일까지 입니다.")
                 return day_list
 
@@ -321,7 +321,7 @@ class Etoos:
 
         driver.implicitly_wait(2)
         tatal_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
-        position_slash = tatal_page_tag.rfind('/')
+        position_slash = tatal_page_tag.rfind("/")
         str(tatal_page_tag)
 
         total_page = int(tatal_page_tag[-position_slash:])
@@ -331,17 +331,17 @@ class Etoos:
 
 
 
-
-    def reading(total_page, subject, var_Input_day) :
+    def crawlingQuestion(total_page, subject, var_Input_day) :
 
         edit_var_Input_day = var_Input_day.replace("/","")
-        kor_folder_path = f'/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}'
+        kor_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}"
+        math_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}"
         filetype = "PNG"
 
         def downloadAndeditImg(question_link, file_path, subject) :
             
             urlretrieve(question_link, file_path)            
-            print(f"{subject} 문제{page}번 다운로드 완료")
+            
             time.sleep(0.5)
 
             cropImage(file_path)
@@ -349,63 +349,49 @@ class Etoos:
 
             resizeImage(file_path)
             time.sleep(0.5)
-
-        if not os.path.isdir(kor_folder_path) :
-        
-            print("폴더를 생성합니다.")            
-            os.makedirs(kor_folder_path)
-            time.sleep(0.5)
-
-        for page in range(1, total_page+1) :
-
-            question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            file_path = f"{kor_folder_path}/{subject} 문제{page}번.{filetype}"
             
-            downloadAndeditImg(question_link, file_path, subject)
+            return print(f"{subject} 문제{page}번 다운로드 완료")
 
-            driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-            time.sleep(1.0)
+        if subject == "언매" or subject == "화작" :
 
-        return kor_folder_path
-
-
-    def math(total_page, subject, var_Input_day) :
-    
-        edit_var_Input_day = var_Input_day.replace("/","")
-        math_folder_path = f'/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}'
-        filetype = "PNG"
-
-        def downloadAndeditImg(question_link, file_path, subject) :
+            if not os.path.isdir(kor_folder_path) :
             
-            urlretrieve(question_link, file_path)            
-            print(f"{subject} 문제{i}번 다운로드 완료")
-            time.sleep(0.25)
+                print("폴더를 생성합니다.")            
+                os.makedirs(kor_folder_path)
+                time.sleep(0.5)
 
-            cropImage(file_path)
-            time.sleep(0.25)
+            for page in range(1, total_page+1) :
 
-            resizeImage(file_path)
-            time.sleep(0.25)
+                question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+                file_path = f"{kor_folder_path}/{subject} 문제{page}번.{filetype}"
+                
+                downloadAndeditImg(question_link, file_path, subject)
 
-        if not os.path.isdir(math_folder_path) :
-        
-            print("폴더를 생성합니다.")            
-            os.makedirs(math_folder_path)
-            time.sleep(0.5)
+                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
+                time.sleep(1.0)
+                # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2번 다운로드 되지 않게 함
+            return kor_folder_path
+            
+        elif subject == "확통1" or subject == "미적분1" or subject == "기하1" or subject == "확통2" or subject == "미적분2" or subject == "기하2" :
+            
+            if not os.path.isdir(math_folder_path) :
+            
+                print("폴더를 생성합니다.")            
+                os.makedirs(math_folder_path)
+                time.sleep(0.5)
 
-        for i in range(1, total_page+1) :
+            for page in range(1, total_page+1) :
 
-            question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-            file_path = f"{math_folder_path}/{subject} 문제{i}번.{filetype}"
+                question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
+                file_path = f"{math_folder_path}/{subject} 문제{page}번.{filetype}"
 
-            downloadAndeditImg(question_link, file_path, subject)
+                downloadAndeditImg(question_link, file_path, subject)
 
-            driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
-            time.sleep(1.0)
-            # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2먼 다운로드 되지 않게 함
+                driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
+                time.sleep(1.0)
 
+            return math_folder_path
 
-        return math_folder_path
 
 
 
@@ -419,44 +405,6 @@ class Etoos:
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
 
         return 
-
-
-
-
-    def crawlingQuestion(total_page, subject, var_Input_day) :
-
-        if subject == '언매' : 
-
-            Etoos.reading(total_page, subject, var_Input_day)
-            # 여기서 selectDay 가 다시 이루어지고
-            # 크롤링이 다시 이뤄져야함
-
-        elif subject == '화작' : 
-            Etoos.reading(total_page, subject, var_Input_day)
-
-        elif subject == '확통1' : 
-
-            Etoos.math(total_page, subject, var_Input_day)
-
-        elif subject == '미적분1' : 
-
-            Etoos.math(total_page, subject, var_Input_day)                
-
-        elif subject == '기하1' : 
-
-            Etoos.math(total_page, subject, var_Input_day)
-
-        elif subject == '확통2' : 
-
-            Etoos.math(total_page, subject, var_Input_day)
-
-        elif subject == '미적분2' : 
-
-            Etoos.math(total_page, subject, var_Input_day)
-
-        elif subject == '기하2' : 
-
-            math_folder_path = Etoos.math(total_page, subject, var_Input_day)
 
 
 
@@ -484,4 +432,4 @@ class Etoos:
         kor_file_list = os.listdir(kor_folder_path)
         math_file_list = os.listdir(math_folder_path)
 
-        pass
+        return
