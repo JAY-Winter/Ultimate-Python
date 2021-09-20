@@ -22,6 +22,7 @@ class Etoos:
 
 
     def acceptAlert() :
+        
         alert = driver.switch_to.alert
         time.sleep(0.25)
         alert.accept()
