@@ -8,6 +8,10 @@ import time
 from dotenv import load_dotenv
 from editImg import cropImage, resizeImage
 
+
+
+
+
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
     def __init__() :
@@ -16,10 +20,12 @@ class Etoos:
 
 
 
+
     def acceptAlert() :
         alert = driver.switch_to.alert
         time.sleep(0.25)
         alert.accept()
+
 
 
 
@@ -102,8 +108,6 @@ class Etoos:
                 except NoAlertPresentException as e:
                     print("이미 들어와 있는 페이지입니다.", e)
                     return subject
-
-
 
             elif subject == 1 : 
                 subject = "화작"
@@ -228,9 +232,10 @@ class Etoos:
 
 
 
+
     def countDay() :
-# countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
-# 따라서 driver.implicitly_wait() 로 수정했다.
+    # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
+    # 따라서 driver.implicitly_wait() 로 수정했다.
         day_list = []
 
         for week in range(1,6) :
@@ -331,6 +336,7 @@ class Etoos:
 
 
 
+
     def crawlingQuestion(total_page, subject, var_Input_day) :
 
         edit_var_Input_day = var_Input_day.replace("/","")
@@ -370,7 +376,7 @@ class Etoos:
                 driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
                 time.sleep(1.0)
                 # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2번 다운로드 되지 않게 함
-            return kor_folder_path
+            return edit_var_Input_day
             
         elif subject == "확통1" or subject == "미적분1" or subject == "기하1" or subject == "확통2" or subject == "미적분2" or subject == "기하2" :
             
@@ -390,7 +396,7 @@ class Etoos:
                 driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
                 time.sleep(1.0)
 
-            return math_folder_path
+            return edit_var_Input_day
 
 
 
@@ -409,27 +415,98 @@ class Etoos:
 
 
 
+
     def closedriver() :
 
-        print("""
-프로그램을 종료합니다.
-문의 : ETOOS247 일산동구점 정재현
-        """)
-        
         driver.close()
         driver.switch_to_window(window_before)
         driver.close()
 
+        return print("""
+프로그램을 종료합니다.
+문의 : ETOOS247 일산동구점 정재현
+        """)
+
+
+
+
+
+    def removeDuplicatedQuestion(edit_var_Input_day) :
+
+        kor_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}"
+        math_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}"
+
+        kor_file_list = os.listdir(kor_path)
+        math_file_list = os.listdir(math_path)
+
+        kor_file_list.sort()
+        math_file_list.sort()
+
+        kor_file_size_list = []
+        math_file_size_list = []
+
+        print(kor_file_list)
+        print(math_file_list)
+
+        for list in range(len(kor_file_list)) :
+
+            kor_file_size = os.path.getsize(f"{kor_path}/{kor_file_list[list]}")
+            # 국어/선택한 날짜 폴더 내 파일 사이즈 확인
+
+            kor_file_size_list.append(kor_file_size)
+            # size_list 에 file_size 추가
+
+        for list in range( len(math_file_list) ) :
+
+            math_file_size = os.path.getsize(f"{math_path}/{math_file_list[list]}")
         
+            math_file_size_list.append(math_file_size)
 
-        return 
+        # for i in range( 1, int(len(kor_file_size_list)/2)+1 ) :
+            
+        #     for j in range( int(len(kor_file_size_list)/2)+1, int(len(kor_file_size_list)) ) :
+
+        #         if kor_file_size_list[i] == kor_file_size_list[j] :
+
+        #             os.remove(f"{kor_path}/{kor_file_list[j]}")
+        start = 1
+
+        for i in range(len(kor_file_size_list)-1 ) :
+            
+            for j in range(start, len(kor_file_size_list) ) :
+
+                if kor_file_size_list[i] == kor_file_size_list[j] :
+                    print(kor_file_list[j])
+
+                    try :
+                        os.remove(f"{kor_path}/{kor_file_list[j]}")
+                        
+                    except :
+                        pass
+
+            start += 1
+
+        start = 1
+
+        for i in range(len(math_file_size_list)-1 ) :
+            
+            for j in range(start, len(math_file_size_list) ) :
+                
+                if math_file_size_list[i] == math_file_size_list[j] :
+                    print(math_file_list[j])
+
+                    try : 
+                        os.remove(f"{math_path}/{math_file_list[j]}")
+
+                    except : 
+                        pass
+
+            start += 1
 
 
-
-
-    def removeDuplicatedQuestion(kor_folder_path, math_folder_path) :
+        print(kor_file_list)
+        print(math_file_list)
         
-        kor_file_list = os.listdir(kor_folder_path)
-        math_file_list = os.listdir(math_folder_path)
+        return print("remove YESEYYSEYEYSYSE")
 
-        return
+
