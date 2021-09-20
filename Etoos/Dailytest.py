@@ -88,7 +88,7 @@ class Etoos:
 
 
 
-    def selectsubject(subject) : 
+    def selectSubject(subject) : 
 
         try : 
             # 국어 선택과목
@@ -277,15 +277,15 @@ class Etoos:
 
 
 
-    def selectDay(day_list, Input_day) : 
+    def selectDay(day_list, input_day) : 
 
         try :
-            var_Input_day = Input_day
-            # Input_day 를 새로 var_Input_day 로 선언하는 이유는
-            # Input_day 의 고유 값이 변하면 안 되기 때문이다.
-            # 아래와 같이 var_Input_day 값에 변화를 줌
+            var_input_day = input_day
+            # input_day 를 새로 var_input_day 로 선언하는 이유는
+            # input_day 의 고유 값이 변하면 안 되기 때문이다.
+            # 아래와 같이 var_input_day 값에 변화를 줌
             
-            list_Input_day = f"['{var_Input_day}']"
+            list_input_day = f"['{var_input_day}']"
 
             keys_list = []
             values_list = []
@@ -298,9 +298,9 @@ class Etoos:
                     # keys() 를 통해 dict type 으로 반환된 day_list[i] 값을 list type 으로 변환 후 
                     # str type 으로 최종 변환을 통해 keys_list 에 append
 
-                    if list_Input_day == keys_list[i] :
-                        # list_Input_day 는 var_Input_day 를 list index 처럼 보이게 선언된 변수
-                        # day_list 개수 만큼의 반복문을 통해 key_list[i] 와 Input_day(내가 입력한 day) 같을 시 
+                    if list_input_day == keys_list[i] :
+                        # list_input_day 는 var_input_day 를 list index 처럼 보이게 선언된 변수
+                        # day_list 개수 만큼의 반복문을 통해 key_list[i] 와 input_day(내가 입력한 day) 같을 시 
 
                         values_list = list(day_list[i].values())
                         values_list[0].click()
@@ -309,9 +309,9 @@ class Etoos:
                         Etoos.acceptAlert()
                         # 새로운 알람창이 뜨며 클릭
 
-                        return var_Input_day
+                        return var_input_day
 
-                    elif len(var_Input_day) != 7 :
+                    elif len(var_input_day) != 7 :
 
                         print("양식에 맞는 날짜를 입력해주세요.")
                         return Etoos.selectDay(day_list)
@@ -347,11 +347,11 @@ class Etoos:
 
 
 
-    def crawlingQuestion(total_page, subject, var_Input_day) :
+    def crawlingQuestion(total_page, subject, var_input_day) :
 
-        edit_var_Input_day = var_Input_day.replace("/","")
-        kor_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}"
-        math_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}"
+        edit_var_input_day = var_input_day.replace("/","")
+        kor_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_input_day}"
+        math_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_input_day}"
         filetype = "PNG"
 
         def downloadAndeditImg(question_link, file_path, subject) :
@@ -386,7 +386,7 @@ class Etoos:
                 driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
                 time.sleep(1.0)
                 # 다음 페이지로 넘어가기 전 1.0 s 시간을 줘 동잂 파일이 2번 다운로드 되지 않게 함
-            return edit_var_Input_day
+            return edit_var_input_day
             
         elif subject == "확통1" or subject == "미적분1" or subject == "기하1" or subject == "확통2" or subject == "미적분2" or subject == "기하2" :
             
@@ -406,14 +406,15 @@ class Etoos:
                 driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > a.bt_next").click()            
                 time.sleep(1.0)
 
-            return edit_var_Input_day
+            return edit_var_input_day
 
 
 
 
 
 
-    def addSelectsubject() :
+    def addSelectSubject() :
+
         alert = driver.switch_to.alert
         alert.accept()
 
@@ -426,7 +427,7 @@ class Etoos:
 
 
 
-    def closedriver() :
+    def closeDriver() :
 
         driver.close()
         driver.switch_to_window(window_before)
@@ -441,10 +442,10 @@ class Etoos:
 
 
 
-    def removeDuplicatedQuestion(edit_var_Input_day) :
+    def removeDuplicatedQuestion(edit_var_input_day) :
 
-        kor_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}"
-        math_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}"
+        kor_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_input_day}"
+        math_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_input_day}"
         # 과목 별 path 지정
 
         kor_file_list = os.listdir(kor_path)

@@ -20,28 +20,28 @@ print("""
 
 len_subject = 8
 
-Input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
+input_day = input("희망하는 날짜를 입력하세요. ex) 07 / 01 : ")
 
 
 for subject in range(len_subject) :
 
-    subject = Etoos.selectsubject(subject)
+    subject = Etoos.selectSubject(subject)
     
     day_list = Etoos.countDay()
 
-    var_Input_day = Etoos.selectDay(day_list, Input_day)
+    var_input_day = Etoos.selectDay(day_list, input_day)
 
     total_page = Etoos.countTotalPage()
 
-    Etoos.crawlingQuestion(total_page, subject, Input_day)
+    Etoos.crawlingQuestion(total_page, subject, input_day)
 
     Etoos.addSelectsubject()
 
 
-edit_var_input_day = var_Input_day.replace("/","")
+edit_var_input_day = var_input_day.replace("/","")
 
 Etoos.removeDuplicatedQuestion(edit_var_input_day)
 
 
-Etoos.closedriver()
+Etoos.closeDriver()
 
