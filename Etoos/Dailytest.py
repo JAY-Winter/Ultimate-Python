@@ -104,7 +104,6 @@ class Etoos:
 
                     return subject
 
-                    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]")))
                 except NoAlertPresentException as e:
                     print("이미 들어와 있는 페이지입니다.", e)
                     return subject
@@ -150,7 +149,6 @@ class Etoos:
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
                     driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
-
 
                     Etoos.acceptAlert()
 
@@ -200,7 +198,6 @@ class Etoos:
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
                     driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[5]").click()
-                                    
 
                     Etoos.acceptAlert()
 
@@ -209,6 +206,7 @@ class Etoos:
                 except NoAlertPresentException as e:
                     print("이미 들어와 있는 페이지입니다.", e)
                     return subject
+
             elif subject == 7 : 
                 subject = "기하2"
 
@@ -283,24 +281,33 @@ class Etoos:
 
         try :
             var_Input_day = Input_day
-
+            # Input_day 를 새로 var_Input_day 로 선언하는 이유는
+            # Input_day 의 고유 값이 변하면 안 되기 때문이다.
+            # 아래와 같이 var_Input_day 값에 변화를 줌
+            
             list_Input_day = f"['{var_Input_day}']"
 
-            keys_to_list = []
-            values_to_list = []
+            keys_list = []
+            values_list = []
 
             for i in range(len(day_list)) :
 
                 try :
 
-                    keys_to_list.append(str(list(day_list[i].keys())))
+                    keys_list.append(str(list(day_list[i].keys())))
+                    # keys() 를 통해 dict type 으로 반환된 day_list[i] 값을 list type 으로 변환 후 
+                    # str type 으로 최종 변환을 통해 keys_list 에 append
 
-                    if list_Input_day == keys_to_list[i] :
+                    if list_Input_day == keys_list[i] :
+                        # list_Input_day 는 var_Input_day 를 list index 처럼 보이게 선언된 변수
+                        # day_list 개수 만큼의 반복문을 통해 key_list[i] 와 Input_day(내가 입력한 day) 같을 시 
 
-                        values_to_list = list(day_list[i].values())
-                        values_to_list[0].click()
-
+                        values_list = list(day_list[i].values())
+                        values_list[0].click()
+                        # dict Index로 이루어진 day_list Index 중 values 값을 list type 으로 변환한 값이 values_list 
+                        # list type 으로 변환된 values_list[0] 의 첫 번째 Index 를 클릭
                         Etoos.acceptAlert()
+                        # 새로운 알람창이 뜨며 클릭
 
                         return var_Input_day
 
@@ -325,11 +332,14 @@ class Etoos:
     def countTotalPage() :
 
         driver.implicitly_wait(2)
-        tatal_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
-        position_slash = tatal_page_tag.rfind("/")
-        str(tatal_page_tag)
+        total_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
+        # css_selector 를 통해 찾은 값을 text화 : 1 / 6 이런 식으로 나옴
+        position_slash = total_page_tag.rfind("/")
+        # '/' 이 우측 기준으로 몇 번째 칸에 있는지 확인
+        print("total_page_tag : ", (total_page_tag))
 
-        total_page = int(tatal_page_tag[-position_slash:])
+        total_page = int(total_page_tag[-position_slash:])
+        #total_page_tag 값을 역으로 '/' 값이 우측에서 몇 번째 칸에 있는지 확인한 후 그 만큼의 값을 int type 으로 변환
 
         return total_page
 
@@ -435,23 +445,26 @@ class Etoos:
 
         kor_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_Input_day}"
         math_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_Input_day}"
+        # 과목 별 path 지정
 
         kor_file_list = os.listdir(kor_path)
         math_file_list = os.listdir(math_path)
+        # 지정 된 path 에 위치한 파일들을 list 로 모아서 저장
 
         kor_file_list.sort()
         math_file_list.sort()
+        # list 로 저장된 파일들을 이름 순으로 정렬
+        # 왜? os.listdir 시 어떤 순으로 정렬되는진 모르겠지만 무규칙적으로 정렬
 
         kor_file_size_list = []
         math_file_size_list = []
-
-        print(kor_file_list)
-        print(math_file_list)
+        # filesize 를 담을 배열 생성
 
         for list in range(len(kor_file_list)) :
 
             kor_file_size = os.path.getsize(f"{kor_path}/{kor_file_list[list]}")
             # 국어/선택한 날짜 폴더 내 파일 사이즈 확인
+            #kor_file_list[list] : 언매 1번 문제 ...
 
             kor_file_size_list.append(kor_file_size)
             # size_list 에 file_size 추가
@@ -462,14 +475,8 @@ class Etoos:
         
             math_file_size_list.append(math_file_size)
 
-        # for i in range( 1, int(len(kor_file_size_list)/2)+1 ) :
-            
-        #     for j in range( int(len(kor_file_size_list)/2)+1, int(len(kor_file_size_list)) ) :
-
-        #         if kor_file_size_list[i] == kor_file_size_list[j] :
-
-        #             os.remove(f"{kor_path}/{kor_file_list[j]}")
         start = 1
+        # start = 1 and start +=1 로 지정한 이유 : 비교 대상은 비교할 대상보다 1만큼 더 커야하므로
 
         for i in range(len(kor_file_size_list)-1 ) :
             
@@ -483,10 +490,12 @@ class Etoos:
                         
                     except :
                         pass
+                    # 에외처리를 한 이유 : 반복문 구성 중 이미 삭제된 파일을 다시 삭제하려는 현상이 나타나 예외처리함
 
             start += 1
 
         start = 1
+        # 국어에서 마무리 된 start 는 초기 값 1보다 크므로 재선언
 
         for i in range(len(math_file_size_list)-1 ) :
             
@@ -503,10 +512,6 @@ class Etoos:
 
             start += 1
 
-
-        print(kor_file_list)
-        print(math_file_list)
-        
-        return print("remove YESEYYSEYEYSYSE")
+        return print("중복 파일 제거 완료")
 
 

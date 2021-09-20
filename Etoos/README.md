@@ -5,30 +5,65 @@
 <h4> def list </h4>
 
 1) login() :
+
    selenium 을 이용해 url 를 open 한 뒤 로그인 후
    학생 관리페이지 open
+   global driver 선언
 
-2) selectMajor() :
-   국어(언매, 화작) 또는 수학(확통~기하) 중 희망하는 과목의 시험 페이지 open
-   이미 들어와있는 페이지일 경우 print 후 return Major
+2) selectMajor(subject) :
 
-3) countTotalPage() :
-    시험 페이지 개수가 총 몇 개인지 카운트
+   subject 를 매개변수로 하여 subeject 가 for 반복문에
+   따라 1씩 증가할 수록 과목이 국어 -> 수학 순으로 재정의 되며
+   과목이 새로 정의될 때 마다 각 과목별 xpath 를 찾아 클릭 후 
+   subject 를 return
+   
+3) countDay() :
 
-4) crawlingQuestion(total_page, Major, Input_day) :
-    3개의 매개변수를 통해 crawling 을 희망하는 과목 선택 및
-    원하는 날짜 입력 후 countTotalPage 를 통해 return 된 total_page 만큼 
-    문제 crawling
-    
-5) countDay() :
+    days 는 key : day_key, value : day_values 로
+    이루어져있으며 key 는 text값, values 는 xpath값을 나타냄
+
     월 별 시행되는 데일리테스트 개수가 몇 개인지 count 후
-    return day_list
-    
-6) selectDay() :
+    day_list 를 return 
+
+4) selectDay(day_list, Input_day) :
+
     희망하는 날짜 입력 후 countDay()에서 return 된 day_list
     를 통해 희망하는 날짜와 day_list 에 속해있는 날짜가 일치할 시
     해당 날짜 클릭
-    
+
+
+5) countTotalPage() :
+
+    시험 페이지 개수가 총 몇 개인지 카운트
+
+6) crawlingQuestion(total_page, Major, var_Input_day) :
+
+    3개의 매개변수를 통해 crawling 을 희망하는 과목 선택 및
+    원하는 날짜 입력 후 countTotalPage 를 통해 return 된 total_page 만큼 
+    문제 crawling
+    국어(언매 or 화작) 그리고 수학(확통1 or ... or 기하2)으로 묶어서 작동
+
+6-1) downloadAndeditImg(question_link, file_path, subject) :
+
+    1) urlretrieve(question_link, file_path) 를 통해 question_link 의 파일을 file_path 값으로 다운로드 
+    2) cropImage(file_path) 를 통해 다운로드 받은 문제 외곽의 여백부분 제거
+    3) resizeImage(file_path) 를 통해 다운로드 받은 문제 크기 조정
+
+
+7) addSelectsubject() :
+
+    새로운 alert 가 뜨면 switch 한 후 accept alert 이후
+    다음 과목 선택
+
+8) removeDuplicatedQuestion(edit_var_Input_day) :
+
+    edit_var_Input_day 를 매개변수로 해서 지정된 path 에 맞은
+    문제를 찾고 문제 중 중복된 문제를 제거
+
+9) closedriver() :
+
+    코드 작동 완료시 작동
+
 
 <h1> 진행 과정</h1>
 
@@ -73,13 +108,13 @@ webelement 가 아닌 cssSelector 를 클릭하는 방법을 생각해보았다
 희망하는 날짜를 입력하세요. ex) 07 / 01 : 08 //002
 양식에 맞는 날짜를 입력해주세요.
 
-Traceback (most recent call last):
+"""Traceback (most recent call last):
   File "/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/main.py", line 126, in <module>
     Etoos.select_day(day_list,day_list2, Find_day_key)
   File "/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/main.py", line 79, in select_day
     return Etoos.select_day()
 TypeError: select_day() missing 3 required positional arguments: 'day_list', 'day_list2', and 'Find_day_key'
-
+"""
 오류 해결해야함
 
 7. urlretrieve : 0번째 index 가 중복돼서 다운로드 되는 현상 발생
@@ -96,11 +131,15 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
     어떻게 하나의 하위 폴더만 만들 수 있을까?
 -> makedirs 를 통해 새로운 여러 경로 및 폴더 생성 가능
 -> 각 과목별 -> 날짜별 로 출력 
+
+10. Etoos.removeDuplicatedQuestion(edit_var_Input_day) 생성
+    위 함수를 통해 중복 문제 제거
+
+
 <h1> TO-DO </h1>
 
-1. 양식에 맞지 않은 날짜 입력시 오류 해결
-2. crawlingQ 가 끝난 후 추가로 crawling 원할 시 과목 입력 후 함수가 종료된다 왜 그런거지?
-3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
+1. 양식에 맞지 않은 날짜 입력시 오류 해결(최우선 해결과제)
+2. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
 
 <h1> Problem </h1>
 
