@@ -1,5 +1,16 @@
 <h1> Etoos.API</h1>
 
+<h1> TO-DO </h1>
+
+1. 변수,함수,클래스 선언 어떻게 할 것인가에 대한 정의 필요
+2. 양식에 맞지 않은 날짜 입력시 오류 해결
+3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
+
+<h1> Problem </h1>
+
+* Vscode 에서 commit&pull,push 해도 커밋 카운트가 안 된다
+
+
 <h3> class Etoos </h3>
 
 <h4> def list </h4>
@@ -135,14 +146,4 @@ TypeError: select_day() missing 3 required positional arguments: 'day_list', 'da
 10. Etoos.removeDuplicatedQuestion(edit_var_Input_day) 생성
     위 함수를 통해 중복 문제 제거
 
-
-<h1> TO-DO </h1>
-
-1. 변수,함수,클래스 선언 어떻게 할 것인가에 대한 정의 필요
-2. 양식에 맞지 않은 날짜 입력시 오류 해결
-3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
-
-<h1> Problem </h1>
-
-* Vscode 에서 commit&pull,push 해도 커밋 카운트가 안 된다
 
