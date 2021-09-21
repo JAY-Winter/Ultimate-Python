@@ -27,6 +27,5 @@
 <li> 구글 docs 이용해서 데일리테스트 작성하기 </li>
 <li> 09.18(토) crawlingQuestion 재구조화 reading, math 통합 </li>
 <li> 09.20(월) def removeDuplicatedQuestion(edit_var_Input_day) 완료, Readme 작성 </li>
-<li> 생활코딩 파이썬 공부 - '09.01(수) </li>
-- '21.09.03(금) 쟝고 재개
+<li> 09.21(화) 추석 입니다 </li>
 
