@@ -28,4 +28,4 @@
 <li> 09.18(토) crawlingQuestion 재구조화 reading, math 통합 </li>
 <li> 09.20(월) def removeDuplicatedQuestion(edit_var_Input_day) 완료, Readme 작성 </li>
 <li> 09.21(화) 추석 입니다 </li>
-
+<li> 09.22(수) 구글 docs api 실행 </li>
