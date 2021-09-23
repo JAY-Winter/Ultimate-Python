@@ -10,8 +10,8 @@
 <li> [Selenium] ETOOS 데일리테스트 문제 Crawling '21.08.16(월)</li>
 <li> Commit, push and pull 해도 카운트 안 되는 이유가 무엇일까?</li>
 -> '09.06(월) 동일 현상 발생
-<!-- <li> 오늘은 젤다의 전설과 동물의 숲을 했습니다. </li> -->
-<!-- commit count 가 안됨! -->
+<li> 오늘은 젤다의 전설과 동물의 숲을 했습니다. </li>
+commit count 가 안됨!
 <li>'09.07(화) class ETOOS 재구조화</li>
 <li>'09.08(수) class ETOOS 재구조화 완료</li>
 <li>'09.09(목) velog 작성</li>
@@ -25,6 +25,6 @@
 <li> 구글 docs 이용해서 데일리테스트 작성하기 </li>
 <li> 09.18(토) crawlingQuestion 재구조화 reading, math 통합 </li>
 <li> 09.20(월) def removeDuplicatedQuestion(edit_var_Input_day) 완료, Readme 작성 </li>
-<!-- <li> 09.21(화) 추석 입니다 </li> -->
+<li> 09.21(화) 추석 입니다 </li>
 <li> 09.22(수) 구글 docs api 실행 </li>
-<!-- <li> 09.23(목) 삼성 SSAFY, 졸업예정자 조건 알아봄 </li> -->
+<li> 09.23(목) 삼성 SSAFY, 졸업예정자 조건 알아봄 </li>
