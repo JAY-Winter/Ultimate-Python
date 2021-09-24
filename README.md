@@ -28,3 +28,4 @@ commit count 가 안됨!
 <li> 09.21(화) 추석 입니다 </li>
 <li> 09.22(수) 구글 docs api 실행 </li>
 <li> 09.23(목) 삼성 SSAFY, 졸업예정자 조건 알아봄 </li>
+<li> 09.24(금) 구글 docs api 조사 </li>
