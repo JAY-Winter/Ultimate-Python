@@ -30,3 +30,5 @@ commit count 가 안됨!
 <li> 09.23(목) 삼성 SSAFY, 졸업예정자 조건 알아봄 </li>
 <li> 09.24(금) 구글 docs api 조사 </li>
 <li> 09.25(토) 공부 X </li>
+<li> 09.24(금) 구글 docs api 조사 </li>
+<li> https://github.com/googleapis/google-api-python-client/blob/main/docs/start.md </li>
