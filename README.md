@@ -32,3 +32,4 @@ commit count 가 안됨!
 <li> 09.25(토) 공부 X </li>
 <li> 09.24(금) 구글 docs api 조사 </li>
 <li> https://github.com/googleapis/google-api-python-client/blob/main/docs/start.md </li>
+<li> 09.27(월) 동기/비동기 </li>
