@@ -34,3 +34,4 @@ commit count 가 안됨!
 <li> https://github.com/googleapis/google-api-python-client/blob/main/docs/start.md </li>
 <li> 09.27(월) 동기/비동기 </li>
 <li> 09.28(화) skip </li>
+<li> 09.29(수) google docs api 삽질 중</li>
