@@ -35,7 +35,7 @@ for subject in range(len_subject) :
 
     Etoos.crawlingQuestion(total_page, subject, input_day)
 
-    Etoos.addSelectsubject()
+    Etoos.addSelectSubject()
 
 
 edit_var_input_day = var_input_day.replace("/","")
