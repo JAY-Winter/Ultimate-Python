@@ -1,4 +1,6 @@
 <h1> Etoos.API</h1>
+<h1> 작동 구조 </h1>
+<img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
 
 <h1> TO-DO </h1>
 
