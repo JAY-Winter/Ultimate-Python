@@ -5,11 +5,19 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
+# 아래 코드는 token.json 생성 코드
+
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
+SCOPES = [    
+    "https://www.googleapis.com/auth/documents",
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.file", 
+]
+# only read 만  제공
 
 # The ID of a sample document.
 DOCUMENT_ID = '569415776417-ikohr1do82g3gi0ehqo1d8bkk9fa2fpl.apps.googleusercontent.com'
+# OAuth client ID 입력
 
 def main():
     """Shows basic usage of the Docs API.
@@ -19,10 +27,20 @@ def main():
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    
+    # 초기 credentials 상태는 none
+
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
+    # 경로에 token.json 이 있으면 creds = Credentials 모듈에서 from_authorized_user_file method 
+    # Creates a Credentials instance from an authorized user json file.
+    # 즉, 사용자화 user json file 에서 credntials instance 를 생성한다
+    # SCOPES 내에서만 유효한?
+
     if not creds or not creds.valid:
+        # creds 가 없거나 or 유효하지 않을 때
+
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:

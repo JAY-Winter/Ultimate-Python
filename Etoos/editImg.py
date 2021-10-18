@@ -31,7 +31,7 @@ def resizeImage(file_path) :
 
     img = Image.open(f"{file_path}")
 
-    img_resize = img.resize( (int(img.width * 0.75), int(img.height * 0.75) ))
+    img_resize = img.resize( (int(img.width * 0.6), int(img.height * 0.6) ))
 
     return img_resize.save(f"{file_path}")
 

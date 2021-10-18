@@ -38,7 +38,7 @@ for subject in range(len_subject) :
     Etoos.addSelectSubject()
 
 
-edit_var_input_day = var_input_day.replace("/","")
+edit_var_input_day = var_input_day.replace(" / ","_")
 
 Etoos.removeDuplicatedQuestion(edit_var_input_day)
 

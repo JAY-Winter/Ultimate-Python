@@ -99,7 +99,7 @@ class Etoos:
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)                
                     driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
-
+                    
                     Etoos.acceptAlert()
 
                     return subject
@@ -115,7 +115,7 @@ class Etoos:
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)
                     driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
-
+                    
                     Etoos.acceptAlert()
 
                     return subject
@@ -279,7 +279,7 @@ class Etoos:
 
     def selectDay(day_list, input_day) : 
 
-        try :
+        # try :
             var_input_day = input_day
             # input_day 를 새로 var_input_day 로 선언하는 이유는
             # input_day 의 고유 값이 변하면 안 되기 때문이다.
@@ -292,38 +292,38 @@ class Etoos:
 
             for i in range(len(day_list)) :
 
-                try :
+                # try :
 
-                    keys_list.append(str(list(day_list[i].keys())))
-                    # keys() 를 통해 dict type 으로 반환된 day_list[i] 값을 list type 으로 변환 후 
-                    # str type 으로 최종 변환을 통해 keys_list 에 append
+                keys_list.append(str(list(day_list[i].keys())))
+                # keys() 를 통해 dict type 으로 반환된 day_list[i] 값을 list type 으로 변환 후 
+                # str type 으로 최종 변환을 통해 keys_list 에 append
 
-                    if list_input_day == keys_list[i] :
-                        # list_input_day 는 var_input_day 를 list index 처럼 보이게 선언된 변수
-                        # day_list 개수 만큼의 반복문을 통해 key_list[i] 와 input_day(내가 입력한 day) 같을 시 
+                if list_input_day == keys_list[i] :
+                    # list_input_day 는 var_input_day 를 list index 처럼 보이게 선언된 변수
+                    # day_list 개수 만큼의 반복문을 통해 key_list[i] 와 input_day(내가 입력한 day) 같을 시 
 
-                        values_list = list(day_list[i].values())
-                        values_list[0].click()
-                        # dict Index로 이루어진 day_list Index 중 values 값을 list type 으로 변환한 값이 values_list 
-                        # list type 으로 변환된 values_list[0] 의 첫 번째 Index 를 클릭
-                        Etoos.acceptAlert()
-                        # 새로운 알람창이 뜨며 클릭
+                    values_list = list(day_list[i].values())
+                    values_list[0].click()
+                    # dict Index로 이루어진 day_list Index 중 values 값을 list type 으로 변환한 값이 values_list 
+                    # list type 으로 변환된 values_list[0] 의 첫 번째 Index 를 클릭
+                    Etoos.acceptAlert()
+                    # 새로운 알람창이 뜨며 클릭
 
-                        return var_input_day
+                    return var_input_day
 
-                    elif len(var_input_day) != 7 :
+                elif len(var_input_day) != 7 :
 
-                        print("양식에 맞는 날짜를 입력해주세요.")
-                        return Etoos.selectDay(day_list)
+                    print("양식에 맞는 날짜를 입력해주세요.")
+                    return Etoos.selectDay(day_list, input_day)
 
-                except :
+                # except :
 
-                    print("기타 오류 발생")
-                    return Etoos.selectDay(day_list)
+                #     print("기타 오류 발생")
+                #     return Etoos.selectDay(day_list, input_day)
 
-        except :
-            print("기타 오류입니다.!")
-            return Etoos.selectDay(day_list)
+        # except :
+        #     print("기타 오류입니다.!")
+        #     return Etoos.selectDay(day_list, input_day)
 
 
 
@@ -349,7 +349,7 @@ class Etoos:
 
     def crawlingQuestion(total_page, subject, var_input_day) :
 
-        edit_var_input_day = var_input_day.replace("/","")
+        edit_var_input_day = var_input_day.replace(" / ","_")
         kor_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/국어/{edit_var_input_day}"
         math_folder_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{edit_var_input_day}"
         filetype = "PNG"
@@ -379,7 +379,7 @@ class Etoos:
             for page in range(1, total_page+1) :
 
                 question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-                file_path = f"{kor_folder_path}/{subject} 문제{page}번.{filetype}"
+                file_path = f"{kor_folder_path}/{subject}_문제{page}번.{filetype}"
                 
                 downloadAndeditImg(question_link, file_path, subject)
 
@@ -399,7 +399,7 @@ class Etoos:
             for page in range(1, total_page+1) :
 
                 question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-                file_path = f"{math_folder_path}/{subject} 문제{page}번.{filetype}"
+                file_path = f"{math_folder_path}/{subject}_문제{page}번.{filetype}"
 
                 downloadAndeditImg(question_link, file_path, subject)
 
