@@ -6,13 +6,13 @@ gitignoretest6
 
 git
 
-index
+/index/
 
-Jackson
+/Jackson/
 
-KAKAO
+/KAKAO/
 
-nomad_coder
+/nomad_coder/
 
-syntax
+/syntax/
 
