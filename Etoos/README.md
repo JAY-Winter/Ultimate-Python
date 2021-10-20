@@ -1,6 +1,15 @@
 <h1> Etoos.API</h1>
 <h1> 작동 구조 </h1>
+<<<<<<< Updated upstream
 <img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
+=======
+<<<<<<< HEAD
+
+![2번 002](https://user-images.githubusercontent.com/81538994/136699893-e9e22dee-09e2-404a-9cc3-96768434f4d9.jpeg)
+=======
+<img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
+>>>>>>> 5435bc3 (README 수정)
+>>>>>>> Stashed changes
 
 <h1> TO-DO </h1>
 
