@@ -49,4 +49,5 @@
 <li> 10.15(금) MariaDB 구축 </li>
 <li> 10.16(토) AWS S3 버킷생성 - 객체 업로드 </li>
 <li> 10.17(일) GoogleDocs API를 이용한 데일리테스트 작성 </li>
+<li> 10.20(수) [ETOOS] DailyTest 프로젝트 완료 </li>
 
