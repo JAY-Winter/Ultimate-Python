@@ -2,8 +2,6 @@
 
 <h1> THIS IS ULTIMATE-PYTHON</h1>
 
-
-<h2> 뭐했는지 적는 곳</h3>
 <h3> AUGUST </h3>
 <li> [Django] 시작 '21.08.04(수)</li>
 <li> [Django] skelton 작업 중 '21.08.06(금)</li>
