@@ -18,37 +18,40 @@ service = build('docs', 'v1', credentials=creds)
 
 def main() :
 
-    input_day = "10_15"
-    subject =  ["기하1", "미적1", "확통1", "기하2", "미적2", "확통2"]
+    input_day = "10_20"
+    # subject =   ["기하1", "미적1", "확통1", "기하2", "미적2", "확통2"]
+    subject =  ["(1)","(2)","(3)","(4)","(5)","(6)"]
     subject_path = f"/Applications/mampstack-8.0.3-1/apache2/htdocs/jay/Git/GIT/Python/Ultimate-Python/Etoos/수학/{input_day}"
     subject_file_list = os.listdir(subject_path)
+    subject_file_list.remove(".DS_Store")
     subject_file_list.sort()
     
     print("데일리 테스트 시험지 작성 시작")
 
-    lotation = 1
-    location = 1
+    function_lotation = 1
+    point = 0 
 
-    while 1 <= lotation < 8 :
+    while 1 <= function_lotation < 8 :
+        
+        index_location = 1
 
         for i in range( len(subject) ) :
-
+        
             n = 1
-
-            for j in range( len(subject_file_list) ) :
-
-                location += 1
+            
+            for j in range( point, len(subject_file_list) ) :
+                
                 subject_name_in_file_list = subject_file_list[j][0:3]
-
+                print(subject_name_in_file_list)
                 if subject[i] == subject_name_in_file_list :
 
-                    urls = f'https://etoos-dailytest-storage.s3.ap-northeast-2.amazonaws.com/수학/{input_day}/{subject[i]}_문제{n}번.PNG'
+                    urls = f'https://etoos-dailytest-storage.s3.ap-northeast-2.amazonaws.com/수학/{input_day}/{subject_file_list[j]}'
 
                     requests = [{
 
                         'insertInlineImage': {
 
-                            'location': {'index': location},
+                            'location': {'index': index_location},
                             'uri': urls ,
 
                         }
@@ -63,19 +66,38 @@ def main() :
                         'insertInlineImage')
 
                     print(f"""
-                    구글 docs 데일리테스트 {subject[i]}_문제{n}번 삽입 완료
-                    Inserted image with object ID: {insert_inline_image_response.get('objectId')}
-                    """
-                        )
+                    구글 docs 데일리테스트 {subject_file_list[j]}번 삽입 완료
+                    """)
 
                     n += 1
+                    point += 1
+                    index_location += 1
 
-                else :
+                elif subject[i] != subject_name_in_file_list :
+                # 과목 명이 다를 때 새로운 페이지 생성
+                    print("새로운 페이지 생성") 
 
-                    continue
+                    requests = [{
 
-            #페이지 새로 생성
-            lotation += 1
+                        'insertPageBreak' : {
+                            
+                            'endOfSegmentLocation' : {}
+                        }
+                        }]
+
+                    body = {'requests': requests}
+
+                    response = service.documents().batchUpdate(
+                    documentId=document_id, body=body).execute()
+
+                    insert_page_break_response = response.get('replies')[0].get(
+                    'insertPageBreak')
+
+                    break
+
+
+            # 반복문 i 끝났을 때
+            function_lotation += 1
 
 
 
