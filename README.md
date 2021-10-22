@@ -2,6 +2,14 @@
 
 ![gonna be](https://user-images.githubusercontent.com/81538994/138072981-a91a5114-d936-4c43-bd35-43f9afeb9945.png)
 
+<h1> TO-DO </h1>
+
+1. GoogleDocs/main.py 버그 픽스
+- insertPagebreak 맨 마지막 단에 추가됨
+- '1'번 보다 '10'번이 먼저 추가됨
+2. 양식에 맞지 않은 날짜 입력시 오류 해결
+3. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
+
 <h3> AUGUST </h3>
 <li> [Django] 시작 '21.08.04(수)</li>
 <li> [Django] skelton 작업 중 '21.08.06(금)</li>

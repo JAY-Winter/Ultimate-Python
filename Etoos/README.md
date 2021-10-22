@@ -1,30 +1,7 @@
 <h1> Etoos.API</h1>
+
 <h1> 작동 구조 </h1>
-<<<<<<< Updated upstream
 <img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
-=======
-<<<<<<< HEAD
-
-![2번 002](https://user-images.githubusercontent.com/81538994/136699893-e9e22dee-09e2-404a-9cc3-96768434f4d9.jpeg)
-=======
-<img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
->>>>>>> 5435bc3 (README 수정)
->>>>>>> Stashed changes
-
-<h1> TO-DO </h1>
-
-1. 변수,함수,클래스 선언 어떻게 할 것인가에 대한 정의 필요
-    1) 카멜 표기법
-    2) 파스칼 표기법
-    3) 스네이크 표기법 
-2. 양식에 맞지 않은 날짜 입력시 오류 해결
-3. 구글 docs API 조사
-4. 국어 같은 경우 지문 사진이 따로 있는데 이걸 어떻게 다운받을 것 인가?
-
-<h1> Problem </h1>
-
-* Vscode 에서 commit&pull,push 해도 커밋 카운트가 안 된다
-
 
 <h3> class Etoos </h3>
 
