@@ -62,3 +62,5 @@
 <li> 10.17(일) GoogleDocs API를 이용한 데일리테스트 작성 </li>
 <li> 10.20(수) [ETOOS] DailyTest 프로젝트 완료 </li>
 <li> 10.21(목) [시험기간] 10/21~10/25, commit&push 오류 해결 </li>
+<li> 10.22(금) gitHub 디렉토리 정리, [ETOOS] insertInlineImage 이용 시 문제 순 정렬 </li>
+<li> 10.23(토) [ETOOS] index 위치 확인, insertInlineImage index 위치 수정중 </li>
