@@ -1,3 +1,4 @@
+from operator import index
 import os.path
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
@@ -9,13 +10,13 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive.file", 
 ]
 
-document_id = '1lqxaQvncxOIOONhIEHNbbDJnMS2Xt2swCxSiHRz0zJ4'
+document_id = "1lqxaQvncxOIOONhIEHNbbDJnMS2Xt2swCxSiHRz0zJ4"
 
 
-if os.path.exists('token.json'):
-    creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+if os.path.exists("token.json"):
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
 
-service = build('docs', 'v1', credentials=creds)
+service = build("docs", "v1", credentials=creds)
 
 def main() :
 
@@ -27,9 +28,7 @@ def main() :
     subject_file_list.remove(".DS_Store")
     subject_file_list.sort()
     sorted_subject_file_list = natsort.natsorted(subject_file_list)
-    
-    print(sorted_subject_file_list)
-    
+        
     print("데일리 테스트 시험지 작성 시작")
 
     function_lotation = 1
@@ -39,8 +38,10 @@ def main() :
         # 새로운 페이지가 생성되면 그 페이지의 첫 번째로 가야함
         # for i 문에 index_location = 1 을 선언했을 때
         # 첫 번째 페이지의 첫 번째 index 로 삽입됨
-        index_location = 1
+        # for i 문이 돌 때마다 새롭게 생기는 페이지의 1번째 index 로 들어가야함
 
+        index_location = 1
+    
         for i in range( len(subject) ) :
         
             n = 1
@@ -51,25 +52,23 @@ def main() :
 
                 if subject[i] == subject_name_in_file_list :
 
-                    urls = f'https://etoos-dailytest-storage.s3.ap-northeast-2.amazonaws.com/수학/{input_day}/{sorted_subject_file_list[j]}'
+                    urls = f"https://etoos-dailytest-storage.s3.ap-northeast-2.amazonaws.com/수학/{input_day}/{sorted_subject_file_list[j]}"
 
                     requests = [{
-                        'insertInlineImage': {
-                            'location': {'index': index_location},
-                            'uri': urls ,
+                        "insertInlineImage": {
+                            "location": {"index": index_location},
+                            "uri": urls ,
                         }
                     }]
 
-                    body = {'requests': requests}
+                    body = {"requests": requests}
 
                     response = service.documents().batchUpdate(documentId=document_id, body=body).execute()
 
-                    insert_inline_image_response = response.get('replies')[0].get('insertInlineImage')
-
                     print(f"""
-                    구글 docs 데일리테스트 {sorted_subject_file_list[j]}번 삽입 완료
+                    {sorted_subject_file_list[j]}번 삽입 완료
                     """)
-
+                    print(f"{index_location}")
                     n += 1
                     point += 1
                     index_location += 1
@@ -77,19 +76,50 @@ def main() :
                 else :
                 # 과목 명이 다를 때 새로운 페이지 생성
                     print("새로운 페이지 생성") 
+                    print(f"{index_location}")
+                    # requests = [{
+                    #     "insertPageBreak" : {
+                            
+                    #         "endOfSegmentLocation" : {}
+                    #     }
+                    #     }]
 
                     requests = [{
-                        'insertPageBreak' : {
-                            'endOfSegmentLocation' : {}
-                        }
+                        
+                        "insertPageBreak" : {
+                            "location" : {
+                                "index" : index_location
+                            }
+                        },
+
+                        # "insertText" :{
+                        #     "text" : "<{subject}>",
+                        #     "location" : {
+                        #         "index" : index_location+1
+                        #     }
+                        # }
+
                         }]
 
-                    body = {'requests': requests}
+                    textRequests = {
+
+                            "insertText" :{
+
+                                "text" : "<subject>",
+
+                                "location" : {
+                                    "index" : index_location+1
+                                }
+                            }
+                            
+                        }
+                    requests.append(textRequests)
+                    body = {"requests": requests}
 
                     response = service.documents().batchUpdate(documentId=document_id, body=body).execute()
+                    
 
-                    insert_page_break_response = response.get('replies')[0].get('insertPageBreak')
-
+                    index_location += 2
                     break
 
             # 반복문 i 끝났을 때
