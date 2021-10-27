@@ -61,4 +61,5 @@
 <li> 10.21(목) [시험기간] 10/21~10/25, commit&push 오류 해결 </li>
 <li> 10.22(금) gitHub 디렉토리 정리, [ETOOS] insertInlineImage 이용 시 문제 순 정렬 </li>
 <li> 10.23(토) [ETOOS] index_location 을 이용해서 insertPageBrkae 목적에 맞게 수정 </li>
-<li> 10.25(월) [ETOOS] 도식화, velog 정리 </li>
+<li> 10.26(화) [ETOOS] 도식화, velog 정리 </li>
+<li> 10.27(수) velog 정리 </li>
