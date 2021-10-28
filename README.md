@@ -63,3 +63,4 @@
 <li> 10.23(토) [ETOOS] index_location 을 이용해서 insertPageBrkae 목적에 맞게 수정 </li>
 <li> 10.26(화) [ETOOS] 도식화, velog 정리 </li>
 <li> 10.27(수) velog 정리 </li>
+<li> 10.28(목) velog 정리 </li>
