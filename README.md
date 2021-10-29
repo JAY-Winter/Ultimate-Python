@@ -64,3 +64,4 @@
 <li> 10.26(화) [ETOOS] 도식화, velog 정리 </li>
 <li> 10.27(수) velog 정리 </li>
 <li> 10.28(목) velog 정리 </li>
+<li> 10.29(금) velog 정리 </li>
