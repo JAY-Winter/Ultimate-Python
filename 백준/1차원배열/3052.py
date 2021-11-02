@@ -1,20 +1,34 @@
-
 list = []
-answer= 1
+ans_list = []
 
-for i in range(10):
-    N = int(input())
-    list.append(N)
+div = 42
 
-for j in range(10):
-    
-    x = list[j]%42
+for i in range(10) : 
 
-    for k in range(9):
+    list.append(int(input()))
 
-        y = list[k+1]%42
+    ans = list[i]%42
 
-    if x != y : answer += 1
-    # elif x == y : answer -= 1
+    ans_list.append(ans)
+
+count = 0 
+
+for i in range(9) :
+
+    for j in range(i+1, 10) :
+
+        if ans_list[i] == ans_list[j] :
+
+            count += 1
+        
+        
+if count == 0 : 
+    answer = 1
+
+elif 
+
+else : 
+    answer = 10 - count
+
+
 print(answer)
-

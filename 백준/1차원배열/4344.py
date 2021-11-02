@@ -1,32 +1,56 @@
-import sys
+# import sys
+
+# C = int(input())
+
+# def over_ave(C):
+
+#     answer = []
+
+#     for i in range(C):
+
+#         score = list(map(int, sys.stdin.readline().split()))
+#         N  = score[0]
+#         ave = (sum(score)-N)/N
+#         count = 0
+
+#         for j in range(N+1):
+
+#             if score[j] > ave : count += 1
+                
+#             over_students_ave = (count/N)*100            
+#             round(over_students_ave)
+
+#         answer.append("%0.3f" %+over_students_ave+"%")
+
+#     for k in range(len(answer)):
+
+#         print(answer[k])
+
+# over_ave(C)
+
+
 
 C = int(input())
 
-def over_ave(C):
+for test_case in range(C) :
+    
+    case = list(map(int, input().split()))
 
-    answer = []
+    N = case[0]
+    sum = 0
 
-    for i in range(C):
+    for scores in range(1, N+1) :
 
-        score = list(map(int, sys.stdin.readline().split()))
-        N  = score[0]
-        ave = (sum(score)-N)/N
-        count = 0
+        sum += case[scores] 
 
-        for j in range(N+1):
+    ave = sum/N
 
-            if score[j] > ave : count += 1
-                
-            over_students_ave = (count/N)*100            
-            round(over_students_ave)
+    count = 0
 
-        answer.append("%0.3f" %+over_students_ave+"%")
+    for scores in range(1, N+1) :
+        if case[scores] > ave :
+            count += 1
 
-    for k in range(len(answer)):
+    answer = (count/N)*100
 
-        print(answer[k])
-
-over_ave(C)
-
-
-
+    print(f"{answer:.3f}%")
