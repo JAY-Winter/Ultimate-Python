@@ -76,5 +76,6 @@
 <li> 11.12(금) 점프 투 파이썬 클래스 공부 </li>
 - __init__(self,*args) : 매개변수 여러 개 입력받기
 <li> 11.14(일) Class 공부 </li>
+<li> 11.15(월) pyinstaller 를 이용해 etoos_main.py 프로그래밍 </li>
 
 
