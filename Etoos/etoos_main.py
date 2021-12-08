@@ -1,6 +1,5 @@
 from Dailytest import Etoos
 
-
 Etoos.login()
         
 print("""

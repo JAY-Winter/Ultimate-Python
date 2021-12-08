@@ -38,7 +38,7 @@ class Etoos:
             load_dotenv()
             ID = os.environ.get("ID")
             PW = os.environ.get("PW")
-
+            
             global driver
             driver = webdriver.Chrome("chromedriver")
             driver.get(URL)
@@ -98,7 +98,7 @@ class Etoos:
                 # 국어 과목 클릭
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)                
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[1]").click()
                     
                     Etoos.acceptAlert()
 
@@ -114,7 +114,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[2]").click()
                     
                     Etoos.acceptAlert()
 
@@ -131,7 +131,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[1]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[1]").click()
 
                     Etoos.acceptAlert()
 
@@ -148,7 +148,7 @@ class Etoos:
                 try : 
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[2]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[2]").click()
 
                     Etoos.acceptAlert()
 
@@ -165,7 +165,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[3]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[3]").click()
 
                     Etoos.acceptAlert()
 
@@ -182,7 +182,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[4]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[4]").click()
 
                     Etoos.acceptAlert()
 
@@ -197,7 +197,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[5]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[5]").click()
 
                     Etoos.acceptAlert()
 
@@ -213,7 +213,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[6]/div[2]/div/div[2]/select/option[6]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[6]").click()
 
                     Etoos.acceptAlert()
 
@@ -243,8 +243,8 @@ class Etoos:
                 driver.implicitly_wait(0.1)
 
                 try : 
-                    day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
-                    day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[6]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
+                    day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[8]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
+                    day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[8]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
                     
                     days = {day_key : day_values}
                     
@@ -333,7 +333,7 @@ class Etoos:
 
         driver.implicitly_wait(2)
         total_page_tag = driver.find_element_by_css_selector("#DailyTestCommentaryForm > div > div > div.wrap_test_answer > div.wrap_test > div.paging_etc.clear > div > span").text
-        # css_selector 를 통해 찾은 값을 text화 : 1 / 6 이런 식으로 나옴
+        # css_selector 를 통해 찾은 값을 text화 : 1 / 6 이런 식으로 나옴
         position_slash = total_page_tag.rfind("/")
         # '/' 이 우측 기준으로 몇 번째 칸에 있는지 확인
         print("total_page_tag : ", (total_page_tag))
@@ -399,7 +399,17 @@ class Etoos:
             for page in range(1, total_page+1) :
 
                 question_link = driver.find_element_by_css_selector("#wr_question > div.cont > img").get_attribute("src")
-                file_path = f"{math_folder_path}/{subject}_문제{page}번.{filetype}"
+                # 중복파일 제거시 이름 순으로 정렬된다. 기존 제거시 마지막 과목인 '기하' 과목이 이름순에서 첫 번째이므로 기준이 됐기 때문에 문제를 삽입하는데 번거로움이 있었음
+                # 과목별 tag 를 붙여줌으로써 이름순 정렬
+                
+                if subject == "확통1" : tag = '(1)'
+                elif subject == "미적분1" : tag = '(2)'
+                elif subject == "기하1" : tag = '(3)'
+                elif subject == "확통2" : tag = '(4)'
+                elif subject == "미적분2" : tag = '(5)'
+                elif subject == "기하2" : tag = '(6)'
+
+                file_path = f"{math_folder_path}/{tag}{subject}_문제{page}번.{filetype}"
 
                 downloadAndeditImg(question_link, file_path, subject)
 
