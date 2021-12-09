@@ -38,15 +38,15 @@
 
 ### **b. 명명 규칙**
 
-- 함수, 변수, Attribute는 소문자로 단어 간은 밑줄(_)을 사용하여 연결한다`예: total_numbers`
-- 클래스는 단어 첫 문자마다 대문자를 써서 연결하는 CapWords 포맷으로 명명한다`예: CoreClass`
-- 모듈명은 짧게 소문자로 사용하며 밑줄을 쓸 수 있다. 패키지명 역시 짧게 소문자를 사용하지만 밑줄은 사용하지 않는다`예: serial_reader`
-- 모듈 상수는 모두 대문자를 사용하고 단어마다 밑줄로 연결하는 ALL_CAPS 포맷으로 명명한다`예: MAX_COUNT = 100`
-- 클래스의 public attribute는 밑줄로 시작하지 말아야 한다`예: name`
-- 클래스의 protected instance attribute는 하나의 밑줄로 시작한다`예: _initialized`
-- 클래스의 private instance attribute는 2개의 밑줄로 시작한다`예: __private_var`
-- 인스턴스 메서드는 (객체 자신을 가리키기 위해) self 를 사용한다`예: def copy(self, other):`
-- 클래스 메서드는 (클래스 자신을 가리키기 위해) cls 를 사용한다`예: def clone(cls, other):`
+- 함수, 변수, Attribute는 소문자로 단어 간은 밑줄(_)을 사용하여 연결한다   `예: total_numbers`
+- 클래스는 단어 첫 문자마다 대문자를 써서 연결하는 CapWords 포맷으로 명명한다   `예: CoreClass`
+- 모듈명은 짧게 소문자로 사용하며 밑줄을 쓸 수 있다. 패키지명 역시 짧게 소문자를 사용하지만 밑줄은 사용하지 않는다   `예: serial_reader`
+- 모듈 상수는 모두 대문자를 사용하고 단어마다 밑줄로 연결하는 ALL_CAPS 포맷으로 명명한다   `예: MAX_COUNT = 100`
+- 클래스의 public attribute는 밑줄로 시작하지 말아야 한다   `예: name`
+- 클래스의 protected instance attribute는 하나의 밑줄로 시작한다   `예: _initialized`
+- 클래스의 private instance attribute는 2개의 밑줄로 시작한다   `예: __private_var`
+- 인스턴스 메서드는 (객체 자신을 가리키기 위해) self 를 사용한다   `예: def copy(self, other):`
+- 클래스 메서드는 (클래스 자신을 가리키기 위해) cls 를 사용한다   `예: def clone(cls, other):`
 
 ### **c. 문장과 표현식**
 
