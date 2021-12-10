@@ -15,9 +15,7 @@
     - macOS: x86_64
 - Dependencies
     - Python versions: 3.7-3.9
-## <a href = "https://s3.ap-northeast-2.amazonaws.com/jaywinter.github/Rule.pdf"> 1. Rule </a>
-
-
+##  **[1. Rule](https://s3.ap-northeast-2.amazonaws.com/jaywinter.github/Rule.pdf)**
 
 <h1> 작동 구조 </h1>
 <img src="/Users/heyon/Desktop/JAY/Jay-Thomas-code/KEYNOTE/selenium과 함께라면 - 2/2번/2번.002.jpeg" alt="">
