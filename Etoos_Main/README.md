@@ -1,5 +1,11 @@
 <h1> Etoos</h1>
 
+## Index
+# **Index**
+
+- [Index]
+    - [0. Environment]
+    - [1. Rule (PEP8)]
 ## <a href = "https://s3.ap-northeast-2.amazonaws.com/jaywinter.github/Rule.pdf"> 1. Rule </a>
 
 
