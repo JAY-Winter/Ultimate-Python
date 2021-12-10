@@ -1,6 +1,6 @@
- - [Index]
-    - [0. Environment]
-    - [1. Rule (PEP8)]
+## Index
+- [0. Environment]
+- [1. Rule (PEP8)]
 
 ## **0. Environment**
 
