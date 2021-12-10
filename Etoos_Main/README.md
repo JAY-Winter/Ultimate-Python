@@ -1,9 +1,4 @@
-<h1> Etoos</h1>
-
-## Index
-# **Index**
-
-- [Index]
+ - [Index]
     - [0. Environment]
     - [1. Rule (PEP8)]
 
@@ -15,6 +10,7 @@
     - macOS: x86_64
 - Dependencies
     - Python versions: 3.7-3.9
+
 ##  **[1. Rule](https://s3.ap-northeast-2.amazonaws.com/jaywinter.github/Rule.pdf)**
 
 <h1> 작동 구조 </h1>
