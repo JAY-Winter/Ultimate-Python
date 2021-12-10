@@ -3,12 +3,12 @@
 # Index
 - [Environment](https://github.com/JAY-Winter/Ultimate-Python#environment)
 - [Rule(PEP8)](https://github.com/JAY-Winter/Ultimate-Python#rule)
+- [작동구조](https://github.com/JAY-Winter/Ultimate-Python#작동구조)
 - [What?](https://github.com/JAY-Winter/Ultimate-Python#what)
 - [Why?](https://github.com/JAY-Winter/Ultimate-Python#why)
 - [How?](https://github.com/JAY-Winter/Ultimate-Python#how)
 - [So?](https://github.com/JAY-Winter/Ultimate-Python#so)
 - [Then?](https://github.com/JAY-Winter/Ultimate-Python#then)
-
 
 ## **Environment**
 
@@ -54,4 +54,4 @@
 
 총 시간은 기존 대비 50% 줄었고, 가장 중요한 점은 프로그램이 구동되는 동안 타 업무를 자유롭게 할 수 있게 됐다!
 
-## **Then?** c
+## **Then?**

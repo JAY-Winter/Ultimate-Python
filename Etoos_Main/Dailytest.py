@@ -1,15 +1,14 @@
 import os.path
+import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException, NoSuchWindowException, StaleElementReferenceException
+from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchWindowException
 from urllib.request import urlretrieve
-import time
 from dotenv import load_dotenv
-from editImg import cropImage, resizeImage
-
-
-
-
+from editImg import cropImage
+from editImg import resizeImage
 
 class Etoos:
 # ETOOS 데일리테스트 문제 crawling 하기 위해 작성된 코드입니다.
@@ -17,17 +16,10 @@ class Etoos:
         print("class Etoos operate")
 
 
-
-
-
     def acceptAlert() :
-        
         alert = driver.switch_to.alert
         time.sleep(0.25)
         alert.accept()
-
-
-
 
 
     def login() : 
@@ -85,11 +77,7 @@ class Etoos:
             return Etoos.login()
 
 
-
-
-
     def selectSubject(subject) : 
-
         try : 
             # 국어 선택과목
             if subject == 0 : 
@@ -228,9 +216,6 @@ class Etoos:
             pass
 
 
-
-
-
     def countDay() :
     # countDay return 하는 시간이 30초 이상 걸렸던 이유는 drvier.timeout = 30sec 로 초기 설정되어있었기 때문
     # 따라서 driver.implicitly_wait() 로 수정했다.
@@ -274,9 +259,6 @@ class Etoos:
                 return day_list
 
 
-
-
-
     def selectDay(day_list, input_day) : 
 
         # try :
@@ -316,18 +298,6 @@ class Etoos:
                     print("양식에 맞는 날짜를 입력해주세요.")
                     return Etoos.selectDay(day_list, input_day)
 
-                # except :
-
-                #     print("기타 오류 발생")
-                #     return Etoos.selectDay(day_list, input_day)
-
-        # except :
-        #     print("기타 오류입니다.!")
-        #     return Etoos.selectDay(day_list, input_day)
-
-
-
-
 
     def countTotalPage() :
 
@@ -342,9 +312,6 @@ class Etoos:
         #total_page_tag 값을 역으로 '/' 값이 우측에서 몇 번째 칸에 있는지 확인한 후 그 만큼의 값을 int type 으로 변환
 
         return total_page
-
-
-
 
 
     def crawlingQuestion(total_page, subject, var_input_day) :
@@ -419,10 +386,6 @@ class Etoos:
             return edit_var_input_day
 
 
-
-
-
-
     def addSelectSubject() :
 
         alert = driver.switch_to.alert
@@ -432,9 +395,6 @@ class Etoos:
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[3]/a").click()
 
         return 
-
-
-
 
 
     def closeDriver() :
@@ -447,9 +407,6 @@ class Etoos:
 프로그램을 종료합니다.
 문의 : ETOOS247 일산동구점 정재현
         """)
-
-
-
 
 
     def removeDuplicatedQuestion(edit_var_input_day) :
