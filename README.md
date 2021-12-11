@@ -47,11 +47,11 @@
 
 [3. AWS S3 에 업로드 된 문제를 GoogleDocs API 를 이용해 구글 독스에 자동 작성](https://velog.io/@jaythomas/Google-API-Google-Docs-API-%EB%A1%9C-%EB%AC%B8%EC%84%9C-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0)
 <br>
-4. Pyinstaller 를 이용해 WindowOS 에서 구동될 수 있는 프로그램 작성 및 배포
+[4. Pyinstaller 를 이용해 WindowOS 에서 구동될 수 있는 프로그램 작성 및 배포]()
 <p>
 
 ## **So?** 
 
-총 시간은 기존 대비 50% 줄었고, 가장 중요한 점은 프로그램이 구동되는 동안 타 업무를 자유롭게 할 수 있게 됐다!
+총 시간은 기존 대비 60% 줄었고, 가장 중요한 점은 프로그램이 구동되는 동안 타 업무를 자유롭게 할 수 있게 됐다!
 
 ## **Then?**
