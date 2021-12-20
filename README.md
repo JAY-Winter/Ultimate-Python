@@ -26,7 +26,7 @@
 
 ## **What?**
 
-![What 001](https://user-images.githubusercontent.com/81538994/145347757-b85e918a-8ea4-4deb-bb11-bdbc7e3543b2.jpeg)
+![CV  수정3 001](https://user-images.githubusercontent.com/81538994/146696119-31d0d5a9-1606-44fb-8861-7200f5341fcc.jpeg)
 
 ## **Why?** 
 이투스247 학원 데일리 업무 데일리테스트 시험지 작성 자동화를 위해!
