@@ -60,6 +60,10 @@ class Etoos:
             driver.find_element_by_id("m_PB200922").click()
             driver.implicitly_wait(50)
 
+            # 2022년 학생리스트 클릭 (임시)
+            driver.find_element_by_xpath("/html/body/div[2]/form[1]/div/div[2]/select/option[1]").click()
+            driver.implicitly_wait(50)
+
             # 첫 번째 학생 관리 페이지 클릭
             driver.find_element_by_css_selector("#content > div.wrap_tbl_sdw.mgt_20 > table > tbody > tr:nth-child(1) > td:nth-child(6) > a").click()
 
@@ -76,8 +80,39 @@ class Etoos:
             driver.close()
             return Etoos.login()
 
+    def checkMonth(input_day) :
+
+        clickMonth = input_day[0:2]
+        monthList = []
+        fullPathList = []
+
+        if clickMonth[0] == "0" :
+            clickMonth = clickMonth[1]+"월"            
+
+        else : 
+            clickMonth = clickMonth+"월"
+
+        for i in range(9) :
+
+            monthListId = driver.find_element_by_xpath(f"/html/body/div[2]/div[7]/div[2]/div/div[3]/div[1]/ul/li[{i+1}]/a").text
+            monthListFullPath = (f"/html/body/div[2]/div[7]/div[2]/div/div[3]/div[1]/ul/li[{i+1}]/a")                                            
+
+            monthList.append(monthListId)
+            fullPathList.append(monthListFullPath)
+
+        for j in range(len(monthList)) :
+
+            if clickMonth == monthList[j] :
+
+                driver.find_element_by_xpath(fullPathList[j]).click()
+
+            else : 
+
+                pass
+
 
     def selectSubject(subject) : 
+
         try : 
             # 국어 선택과목
             if subject == 0 : 
@@ -86,7 +121,7 @@ class Etoos:
                 # 국어 과목 클릭
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)                
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[1]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[1]").click()
                     
                     Etoos.acceptAlert()
 
@@ -102,7 +137,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject1 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[2]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[2]").click()
                     
                     Etoos.acceptAlert()
 
@@ -119,7 +154,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[1]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[1]").click()
 
                     Etoos.acceptAlert()
 
@@ -136,7 +171,7 @@ class Etoos:
                 try : 
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[2]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[2]").click()
 
                     Etoos.acceptAlert()
 
@@ -153,7 +188,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[3]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[3]").click()
 
                     Etoos.acceptAlert()
 
@@ -170,7 +205,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[4]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[4]").click()
 
                     Etoos.acceptAlert()
 
@@ -185,7 +220,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[5]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[5]").click()
 
                     Etoos.acceptAlert()
 
@@ -201,7 +236,7 @@ class Etoos:
                 try :
                     driver.find_element_by_css_selector("#menuList > ul > li.subject2 > a").click()
                     time.sleep(0.25)
-                    driver.find_element_by_xpath("/html/body/div[2]/div[8]/div[2]/div/div[2]/select/option[6]").click()
+                    driver.find_element_by_xpath("/html/body/div[2]/div[7]/div[2]/div/div[2]/select/option[6]").click()
 
                     Etoos.acceptAlert()
 
@@ -228,8 +263,9 @@ class Etoos:
                 driver.implicitly_wait(0.1)
 
                 try : 
-                    day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[8]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
-                    day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[8]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
+                    day_key = driver.find_element_by_xpath(f"/html/body/div[2]/div[7]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong").text
+
+                    day_values = driver.find_element_by_xpath(f"/html/body/div[2]/div[7]/div[2]/div/div[3]/div[2]/table/tbody/tr[{week}]/td[{day}]/div/strong")
                     
                     days = {day_key : day_values}
                     
