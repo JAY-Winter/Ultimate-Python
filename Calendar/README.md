@@ -74,3 +74,4 @@
 - 12.13(월) Repository 정리, README 작성 중
 - 12.14(화) CV, 포트폴리오 정리 중
 - 12.22(수) Apple Developer Academy 지원서 작성 완료, [DancingBeans] Project 시작
+- - 12.23(목) [DancingBeans] Project - main page 구성
