@@ -76,3 +76,4 @@
 - 12.22(수) Apple Developer Academy 지원서 작성 완료, [DancingBeans] Project 시작
 - 12.23(목) [DancingBeans] Project - main page 구성
 - 12.24(금) [DancingBeans] mainpage, 1page 제작 중
+- 12.25(토) [DancingBeans] 네이버 로그인 기능 추가 중 
