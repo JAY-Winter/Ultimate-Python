@@ -77,3 +77,5 @@
 - 12.23(목) [DancingBeans] Project - main page 구성
 - 12.24(금) [DancingBeans] mainpage, 1page 제작 중
 - 12.25(토) [DancingBeans] 네이버 로그인 기능 추가 중 
+- 12.26(일) [DancingBeans] 네이버 로그인 기능 추가 중  ... 현재 폴더 정리가 안 돼서 업로드를 못 함
+
