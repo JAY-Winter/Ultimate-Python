@@ -81,3 +81,8 @@
 - 12.27(월) [DancingBeans] LaunchScreenViewController, 최초 페이지(커피사진) 주문 alert 창 구현
 - 12.28(화) [DancingBeans] SeoungHunTed/DancingBeans Github 에 프로젝트 업로드 / UITapGestureRecognizer 테스트 작동
 - 12.29(수) [DancingBeans] SeoungHunTed/DancingBeans Github - Master Branch 생성 및 file merger / NaverLogin 기능 구현
+
+
+# **January**
+
+- 01.01(토) IOS - Navigation / target action 
