@@ -85,4 +85,6 @@
 
 # **January**
 
-- 01.01(토) IOS - Navigation / target action 
+- 01.01(토) iOS - Navigation / target action 
+- 01.03(월) iOS - 한 페이지에 여러 버튼이 있을 때, 각각의 버튼에 ViewController 를 만들어서 segue 하는 대신
+하나의 ViewController 에 class 선언해서 생성할 수 있는 방법이 없을까? / UIButton 별로 tag 를 달아서 데이터를 받아오는 방법 / 데이터 전달 : Down Casting ?
