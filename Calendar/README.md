@@ -87,6 +87,7 @@
 
 - 01.01(토) iOS - Navigation / target action 
 - 01.03(월) iOS - 한 페이지에 여러 버튼이 있을 때, 각각의 버튼에 ViewController 를 만들어서 segue 하는 대신
-하나의 ViewController 에 class 선언해서 생성할 수 있는 방법이 없을까? / UIButton 별로 tag 를 달아서 데이터를 받아오는 방법 / 데이터 전달 : Down Casting ?
-- 01.04(화) iOS - 다음 viewController 에 data 넘기기
-- 01.05(수) iOS - 다음 viewController 에 data 넘기기(2)
+하나의 ViewController 에 class 선언해서 생성할 수 있는 방법이 없을까? / UIButton 별로 tag 를 달아서 데이터를 받아오는 방법 / 데이터 전달 : Down Castinext ?
+- 01.04(화) iOS - next VC 에 data 넘기기
+- 01.05(수) iOS - next VC 에 data 넘기기(2)
+- 01.06(목) iOS - next VC 에 data 넘기기 - segue, Navigation 을 이용해서 넘김 / VC 내 여러 버튼을 하나의 action 에 연결해 다음 VC 에 data 를 어떻게 넘길까? 
