@@ -94,3 +94,4 @@
 - 01.07(금) iOS - next VC 에 data 넘기기 - butoon.tag 를 이용해서 next VC - label, UIImageView 에 각 태그 별 맞는 변수 적용
 - 01.08(토) iOS - order VC - 담기 버튼 : modal.diss 이용
 - 01.11(화) iOS - stepper 구현 중 
+- 01.12(수) iOS - HOT / ICE 메뉴 구분해서 VC 구조 제작
