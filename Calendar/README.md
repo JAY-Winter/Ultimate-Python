@@ -96,3 +96,4 @@
 - 01.11(화) iOS - stepper 구현 중 
 - 01.12(수) iOS - HOT / ICE 메뉴 구분해서 VC 구조 제작
 - 01.13(목) iOS - Bottom Sheet 구현
+- 01.17(월) python - Etoos, Kakao Vision API : OCR 을 이용한 프로그래밍 
