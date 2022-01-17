@@ -1,19 +1,14 @@
 import json
-from re import S
-
 import cv2
 from dotenv import load_dotenv
-from itsdangerous import exc
 import requests
-import sys
 
 import os
 
 from sklearn.feature_extraction import image
 
-
 LIMIT_PX = 2048
-LIMIT_BYTE = 2048*2048  # 1MB
+LIMIT_BYTE = 2048*2048  # 1MB / 기존 LIMIT_BYTE 값은 1024*1024 였는데 픽셀이 너무 깨져서 2048로 수정했는데 크기가 1mb 를 넘지 않아 적용된듯 함
 LIMIT_BOX = 40
 
 
@@ -38,7 +33,6 @@ def kakao_ocr_resize(image_path: str):
         image = cv2.resize(image, None, fx=ratio, fy=ratio)
         height, width, _ = height, width, _ = image.shape
 
-    #     # api 사용전에 이미지가 resize된 경우, recognize시 resize된 결과를 사용해야함.
         cv2.imwrite(image_path, image)
 
         return image_path
@@ -66,6 +60,7 @@ def kakao_ocr(image_path: str, appkey: str):
 
 def main():
 
+    # 보안상 API_KEY 를 환경변수 처리해주었다.
     load_dotenv()
     API_KEY = os.environ.get("API_KEY")
     appkey = API_KEY
@@ -73,15 +68,20 @@ def main():
     # image folder
     image_folder_path = "/Users/heyon/Desktop/JAY/Jay-Thomas-code/Project/ETOOS_OCR/image"
     image_folder_list = os.listdir(image_folder_path)
-    image_folder_list.sort()    # 현재 image_folder 배열형태 - 순서대로 나열되어있는 형태
+    # 현재 image_folder 배열형태 - 순서대로 나열되어있는 형태
+    image_folder_list.sort()    
     
-    saved_image_folder_path = "/Users/heyon/Desktop/JAY/Jay-Thomas-code/Project/ETOOS_OCR/saved_image"  # 이름 변경된 사진이 저장될 폴더
+    # 이름 변경된 사진이 저장될 폴더
+    saved_image_folder_path = "/Users/heyon/Desktop/JAY/Jay-Thomas-code/Project/ETOOS_OCR/saved_image"  
 
+    # 파일 네이밍 시 접두사 부분에 날짜를 적어야했으므로 date 를 input 받아 파일명에 추가
     date = input("이름 앞에 붙을 날짜를 입력해주세요(ex. 20220701) : " )
 
     for image in range(1, len(image_folder_list), 2) : 
         
-        image_path = f"{image_folder_path}/{image_folder_list[image]}"  # image file 의 경로가 들어와야함
+        # image file 의 경로가 들어와야함
+        image_path = f"{image_folder_path}/{image_folder_list[image]}"  
+        print(os.listdir(image_folder_path))
         print(f"image_path : {image_path}")
         resize_impath = kakao_ocr_resize(image_path)
         
@@ -90,25 +90,19 @@ def main():
 
         output = kakao_ocr(image_path, appkey).json()
 
-        OCR_result = output['result'][7] # 현재 8번 째 property 가 이름 value을 갖고있음 > 양식 수정함에 따라서 바뀐 위치 확인해야함
-        print(OCR_result)
+        # 5번 째 property 가 이름 value을 갖고있음
+        OCR_result = output['result'][5] 
 
-        student_name = OCR_result['recognition_words'][0]   # OCR_result.json file 중 0번째 index 가 이름 value
+        print("[OCR] output:\n{}\n".format(json.dumps(output, sort_keys=True, indent=2, ensure_ascii=False)))
+        # OCR_result.json file 중 0번째 index 가 이름 value
+        student_name = OCR_result['recognition_words'][0]   
         print(student_name)
 
+        # 첫 번째 파일의 이름을 json 파일에서 추출한 student_name 으로 선언하고
+        # 이어서 두 번째 파일 이름을 첫 번째 파일에서 (1)을 더한 이름으로 선언
         os.rename((f"{image_folder_path}/{image_folder_list[image]}"), f"{saved_image_folder_path}/{date} {student_name}.jpg")
         os.rename((f"{image_folder_path}/{image_folder_list[image+1]}"), f"{saved_image_folder_path}/{date} {student_name}(1).jpg")
 
 
-
 if __name__ == "__main__":
     main()
-
-
-## Issue
-# - OCR_result, 즉 이름 index 의 위치가 파일마다 다를 수가 있다
-# > 데일리 플래너 틀 수정 필요함
-
-# - 앞 페이지 : 이름1, 뒷 페이지 : 이름2 어떻게 해야할까
-
-# - 중복 이름 어떻게 해야할까
