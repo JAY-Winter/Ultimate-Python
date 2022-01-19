@@ -97,3 +97,4 @@
 - 01.12(수) iOS - HOT / ICE 메뉴 구분해서 VC 구조 제작
 - 01.13(목) iOS - Bottom Sheet 구현
 - 01.17(월) python - Etoos, Kakao Vision API : OCR 을 이용한 프로그래밍 
+- 01.19(수) UserDefaults 를 이용한 데이터 저장 및 전달 
