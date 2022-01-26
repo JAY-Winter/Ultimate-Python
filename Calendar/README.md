@@ -98,3 +98,4 @@
 - 01.13(목) iOS - Bottom Sheet 구현
 - 01.17(월) python - Etoos, Kakao Vision API : OCR 을 이용한 프로그래밍 
 - 01.19(수) UserDefaults 를 이용한 데이터 저장 및 전달 
+- 01.26(수) 2 개의 delegate 를 이용한 data 전송
