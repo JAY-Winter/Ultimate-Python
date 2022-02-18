@@ -81,22 +81,32 @@ def main():
         
         # image file 의 경로가 들어와야함
         image_path = f"{image_folder_path}/{image_folder_list[image]}"  
-        print(os.listdir(image_folder_path))
-        print(f"image_path : {image_path}")
+        # print(os.listdir(image_folder_path))
+        # print(f"image_path : {image_path}")
         resize_impath = kakao_ocr_resize(image_path)
         
         if resize_impath is not None:
             image_path = resize_impath
 
         output = kakao_ocr(image_path, appkey).json()
+        # print("[OCR] output:\n{}\n".format(json.dumps(output, sort_keys=True, indent=2, ensure_ascii=False)))
 
+        # print(f"len : {len(output['result'])}")
         # 5번 째 property 가 이름 value을 갖고있음
         OCR_result = output['result'][5] 
+        
+        for j in range(len(output['result'])) :
+            print("다음 다음 다음 다음 다음")
+            name_position = output['result'][j]['recognition_words'][0]
 
-        print("[OCR] output:\n{}\n".format(json.dumps(output, sort_keys=True, indent=2, ensure_ascii=False)))
+            if name_position == "이름" :
+
+                print(name_position)
+            # print(output['result'][j]['recognition_words'])
+
         # OCR_result.json file 중 0번째 index 가 이름 value
-        student_name = OCR_result['recognition_words'][0]   
-        print(student_name)
+        student_name = OCR_result['recognition_words'][0]
+        # print(student_name)
 
         # 첫 번째 파일의 이름을 json 파일에서 추출한 student_name 으로 선언하고
         # 이어서 두 번째 파일 이름을 첫 번째 파일에서 (1)을 더한 이름으로 선언
